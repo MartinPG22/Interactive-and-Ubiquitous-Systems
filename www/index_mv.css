@@ -1,0 +1,132 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #d5d5d5;
+  }
+
+#pantalla-principal {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#icono-mv {
+  margin-top: 30%;
+  margin-bottom: 20%;
+}
+
+#icono-mv img {
+  width: 80%;
+}
+
+#botones{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#boton-sonido img{
+  width: 25%;
+  border-radius: 35px;
+  padding: 6%;
+  background-color: #bbbbbb;
+}
+
+#boton-camara img{
+  width: 21%;
+  background-color: #bbbbbb;
+  border-radius: 35px;
+  padding: 7%;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+.nombre-boton {
+  margin-bottom: 5%;
+}
+
+#pulsa-escanea{
+  margin-bottom: 5%;
+}
+
+#opciones-iconos{
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+  position: absolute;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-bottom: 3%;
+}
+
+#container-icono-mapa {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#boton-mapa {
+  width: 25%;
+}
+
+#ayuda {
+  width: 11%;
+  margin-right: 4%;
+}
+
+#eliminar {
+  width: 12%;
+}
+
+#escaneando-sonido {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#boton-grabar {
+  width: 80px;
+  height: 80px;
+  border: 4px solid rgb(48, 48, 48); /* Añade un borde negro de 5px alrededor del botón */
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40%;
+  position: relative; /* Añade posición relativa para posicionar el contenido dentro */
+}
+
+#boton-grabar::after {
+  content: ""; /* Crea un elemento pseudo-elemento para el fondo blanco */
+  position: absolute; /* Posición absoluta para que se superponga al botón */
+  top: 5px; /* Ajusta según el grosor del borde */
+  left: 5px; /* Ajusta según el grosor del borde */
+  width: calc(100% - 10px); /* Ajusta el ancho para considerar el grosor del borde */
+  height: calc(100% - 10px); /* Ajusta la altura para considerar el grosor del borde */
+  background-color: red; /* Establece el color de fondo blanco */
+  border-radius: 50%; /* Asegura que el fondo tenga la misma forma que el botón */
+}
+
+#boton-retroceder {
+  width: 10%;
+  position: fixed; /* Cambiado a fixed para que se mantenga fijo en la ventana */
+  top: 0; /* Lo posiciona en la parte superior */
+  left: 0; /* Lo posiciona en la parte izquierda */
+  padding: 5%;
+}
+
+#escuchando {
+  margin-top: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#escuchando img {
+  width: 60%;
+}
+
+#escuchando p {
+  font-size: 1.3rem;
+}
