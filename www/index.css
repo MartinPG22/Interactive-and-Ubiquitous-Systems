@@ -1,0 +1,235 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #d5d5d5;
+  }
+  
+  .loader {
+    text-align: center;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .logo {
+    margin-bottom: 20px;
+  }
+  
+  .header {
+    background-color: #ffffff;
+    color: white;
+    padding: 10px 20px;
+    border-bottom-left-radius: 5%; /* Borde curvo en la esquina inferior izquierda */
+    border-bottom-right-radius: 5%; /* Borde curvo en la esquina inferior derecha */
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3); /* Sombra en el borde inferior */
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-container img {
+    height: 50px;
+    margin-top: 5%;
+    margin-left: 5%;
+  }
+  
+  .actions-container {
+    margin-right: 20px; /* Ajusta la distancia del margen derecho */
+  }
+  
+  .actions-container button {
+    margin-left: 10px; /* Espacio entre los botones */
+    margin-right: 10px; /* Espacio entre los botones */
+    font-size: 24px; /* Tamaño del icono */
+    padding: 10px; /* Ajuste de relleno */
+  }
+/* Estilos para la cesta */
+  .cart {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .favorites {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .instrument {
+    width: 100%;
+    padding: 10px;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .instrument-loc{
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    margin-top: 2.5%;
+
+}
+
+  .instrument img {
+    width: 10%;
+  }
+  
+  .instrument h3, .instrument p {
+    margin: 5px 0;
+  }
+  
+  .cart-content {
+    width: 60%; /* Ajusta el ancho de la cesta */
+    padding: 20px; /* Añade espacio al contenido de la cesta */
+    display: flex;
+    flex-direction: column; /* Alinea el contenido verticalmente */
+  }
+  
+  .checkout {
+    margin-top: 10%;
+    margin-right: 4%;
+    margin-left: 4%;
+    width: 40%; /* Ajusta el ancho del área de cobro */
+    height: 180px;  /* Ajusta la altura del área de cobro */
+    padding: 40px; /* Añade espacio al área de cobro */
+    background-color: #a6a6a6; /* Color de fondo del área de cobro */
+    border-left: 1px solid #ccc; /* Borde izquierdo */
+  }
+  .subtotal {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 25px;
+    margin-bottom: 4%;
+}
+
+.subtotal #totalPrice {
+    text-align: right;
+    flex-grow: 1;
+}
+
+    .btn-buy {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.payment-methods {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: auto; /* Altura automática para mantener la proporción */
+}
+  
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cart-title {
+    margin-left: 10%;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .favs-title {
+    margin-left: 6.5%;
+    margin-top: 3.5%;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .order-dropdown {
+    font-size: 16px;
+    padding: 5px;
+    margin-right: 5%;
+  }
+  
+  .item-list {
+    margin-left: 10%; /* Ajusta el margen izquierdo */
+    margin-top: 20px; /* Ajusta el margen superior */
+    overflow-y: auto; /* Añade desplazamiento vertical si hay demasiados elementos */
+  }
+  
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Ajusta el margen inferior entre elementos */
+  }
+
+  hr {
+    width: 90%; /* Ancho completo de la línea horizontal */
+    margin: 5px 0; /* Margen superior e inferior */
+    margin-left: 10%;
+    border: none; /* Sin borde */
+    border-top: 1px solid #000000; /* Línea horizontal */
+  }
+  
+  .hr2 {
+    width: 85%; /* Ancho completo de la línea horizontal */
+    margin: 5px 0; /* Margen superior e inferior */
+    margin-left: 6.5%;    border: none; /* Sin borde */
+    border-top: 1px solid #000000; /* Línea horizontal */
+  }
+
+  .product-image {
+    width: 100px; /* Tamaño de la imagen */
+    margin-right: 5%; /* Espacio entre la imagen y la información */
+  }
+  
+  .product-details {
+    flex-grow: 1; /* Permite que la información ocupe el espacio restante */
+  }
+  
+  .product-name {
+    font-weight: bold; /* Estilo del nombre del producto */
+  }
+  
+  .product-price {
+    color: #666; /* Color del precio */
+  }
+  
+  .item-separator {
+    position: relative; /* Posición absoluta */
+    top: 0; /* Se inicia desde la parte superior del elemento padre */
+    left: 0; /* Se inicia desde el borde izquierdo del elemento padre */
+    width: 100%; /* Ancho completo */
+    margin: 0; /* Sin márgenes */
+    border: none; /* Sin borde */
+    margin-bottom: 4%;
+    border-top: 1px solid #000000; /* Línea horizontal */
+  }
+
+  .spinner-container {
+    margin-top: 10px; /* Ajusta la separación entre el logo y el spinner */
+  }
+  
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #333;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Estilos específicos para la pantalla de carga */
+  body.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .invisible {
+    display: none;
+}
