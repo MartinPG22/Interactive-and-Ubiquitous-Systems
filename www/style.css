@@ -65,16 +65,29 @@ body, html {
 }
 
 #boton-mapa {
-  width: 25%;
+  width: 28%;
+  height: 98%;
+}
+
+#boton-centrar-mapa{
+  padding: 4%;
+  width: 10%;
+  height: 10%;
+}
+
+#boton-ayuda-mapa{
+  padding: 4%;
+  width: 9%;
+  height: 9%;
 }
 
 #ayuda {
-  width: 11%;
-  margin-right: 4%;
+  width: 12%;
 }
 
 #eliminar {
-  width: 12%;
+  width: 13%;
+  margin-left: 2%;
 }
 
 #escaneando-sonido {
@@ -114,6 +127,27 @@ body, html {
   padding: 5%;
 }
 
+#boton-retroceder-mapa {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  text-align: center;
+  z-index: 1000;
+  position: absolute; 
+  top: 0; /* Lo posiciona en la parte superior */
+  left: 0; /* Lo posiciona en la parte izquierda */
+  padding: 5%;
+}
+
+#botones-mapa {
+  display: flex;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  justify-content: space-between; /* Los elementos se sitúan en los extremos */
+  position: fixed; /* Cambiado a fixed para mantenerse en la misma posición al hacer scroll */
+  bottom: 0; /* Sitúa el contenedor en la parte superior de la pantalla */
+  z-index: 1100;
+}
+
 #escuchando {
   margin-top: 50%;
   display: flex;
@@ -129,4 +163,27 @@ body, html {
 
 #escuchando p {
   font-size: 1.3rem;
+}
+
+#map {
+  width: 100%; /* Ancho del contenedor del mapa al 100% del ancho de la ventana */
+  height: 100vh; /* Altura del contenedor del mapa al 100% de la altura de la ventana */
+}
+
+#barra-mapa {
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
+  width: 100%; 
+  background-color: #d5d5d5; /* Opcional: color de fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+#barra-mapa img {
+  margin-top: 2%;
+  width: 60%;  
 }

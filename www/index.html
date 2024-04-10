@@ -5,7 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HarmonyScan</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Enlace a Font Awesome -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <link rel='stylesheet' href='style.css'>
+
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin="">
+    </script>
 </head>
   <body>
     <section id="pantalla-principal">
@@ -40,7 +47,17 @@
       <div id="boton-grabar"></div>
     </section>
 
-    <div id="map"></div>
+    <section id="mostrar-mapa">
+      <div id="map"></div>
+      <img id="boton-retroceder-mapa" src="../images/retroceder.png" alt="atrás">
+      <div id="botones-mapa">
+        <img id="boton-centrar-mapa" src="../images/centrar.png" alt="centrar">
+        <img  id="boton-ayuda-mapa" src="../images/ayuda.png" alt="ayuda">
+      </div>
+      <div id="barra-mapa">
+        <img src="../images/logo.png" alt="logo">
+      </div>
+    </section>
 
     <div id="opciones-iconos">
       <div id="ayuda-eliminar">
