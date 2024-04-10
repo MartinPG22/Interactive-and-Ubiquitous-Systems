@@ -1,51 +1,32 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const cartButton = document.getElementById("cartButton");
-  const favButton = document.getElementById("favButton");
 
-  const cartContent = document.querySelector(".cart");
-  const favContent = document.querySelector(".favorites");
+// Obtenemos referencias a los elementos que necesitamos manipular
+const pantallaPrincipal = document.getElementById("pantalla-principal");
+const escaneandoSonido = document.getElementById("escaneando-sonido");
+const botonSonido = document.getElementById("boton-sonido");
+const botonRetroceder = document.getElementById("boton-retroceder");
+const mapa = document.getElementById("map");
+const botonMapa = document.getElementById("boton-mapa");
 
-  const totalPriceElement = document.getElementById("totalPrice");
+// Ocultamos la sección de escaneando sonido al cargar la página
+escaneandoSonido.style.display = "none";
+mapa.style.display = "none";
 
-  // Función para recalcular el precio total
-  function calculateTotalPrice() {
-    let total = 0;
-    const productPrices = document.querySelectorAll(".product-price");
-    productPrices.forEach(priceElement => {
-      const price = parseFloat(priceElement.textContent.replace("€", ""));
-      total += price;
-    });
-    return total.toFixed(2); // Redondeamos el total a dos decimales
-  }
+// Función para manejar el evento táctil en el botón de sonido
+botonSonido.addEventListener("touchstart", function() {
+  pantallaPrincipal.style.display = "none";
+  escaneandoSonido.style.display = "block";
+});
 
-  // Actualizar el precio total al cargar la página
-  totalPriceElement.textContent = calculateTotalPrice();
+// Función para manejar el evento táctil en el botón de retroceso
+botonRetroceder.addEventListener("touchstart", function() {
+  pantallaPrincipal.style.display = "block";
+  escaneandoSonido.style.display = "none";
+});
 
-  // Ocultar los favoritos por defecto
-  cartContent.classList.remove("invisible");
-
-  cartButton.addEventListener("click", function() {
-    favContent.classList.add("invisible");
-    cartContent.classList.remove("invisible");
-    totalPriceElement.textContent = calculateTotalPrice(); // Actualizar el precio total al abrir la cesta
-  });
-
-  favButton.addEventListener("click", function() {
-    cartContent.classList.add("invisible");
-    favContent.classList.remove("invisible");
-    totalPriceElement.textContent = calculateTotalPrice(); // Actualizar el precio total al abrir los favoritos
-  });
-
-  // Añadir un evento para recalcular el precio total cuando se modifique la cesta
-  const observer = new MutationObserver(() => {
-    totalPriceElement.textContent = calculateTotalPrice();
-  });
-  observer.observe(cartContent, { childList: true, subtree: true });
-  
-  setTimeout(function() {
-    document.querySelector(".loader").style.display = "none";
-    document.getElementById("mainContent").classList.remove("hidden");
-    document.body.classList.remove("loading");
-  }, 1000);
+// Función para manejar el evento táctil en el botón de mapa
+botonMapa.addEventListener("touchstart", function() {
+  mapa.style.display = "block";
+  pantallaPrincipal.style.display = "none";
+  escaneandoSonido.style.display = "none";
 });
 

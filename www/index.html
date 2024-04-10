@@ -5,93 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HarmonyScan</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Enlace a Font Awesome -->
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="loading">
-  <div class="loader">
-    <img src="images/logo.png" alt="Logo" class="logo">
-    <div class="spinner-container">
-      <img src="images/cargando.gif" alt="Cargando" class="spinner">
-    </div>
-  </div>
-
-  <div id="mainContent" class="hidden">
-    <header class="header">
-      <div class="header-container">
-        <div class="logo-container">
-          <img src="images/logo.png" alt="Logo" class="logo">
-        </div>
-        <div class="actions-container">
-          <button class="btn" id="cartButton"><i class="fas fa-shopping-basket"></i></button> <!-- Icono de cesta -->
-          <button class="btn" id="favButton"><i class="fas fa-heart"></i></button> <!-- Icono de favoritos -->
-        </div>
+  <body>
+    <section id="pantalla-principal">
+      <div id="icono-mv">
+        <img src="../images/logo_pequeño.png" alt="logo">
       </div>
-    </header>
-
-    <!-- Contenido principal de la página -->
-    <div class="cart invisible">
-      <div class="cart-content">
-        <div class="cart-header">
-          <h2 class="cart-title">CESTA</h2>
-          <select class="order-dropdown">
-            <option value="asc">Precio ascendente (de mayor a menor)</option>
-            <option value="desc">Precio descendente (de menor a mayor)</option>
-          </select>
+      <div id="pulsa-escanea">
+        PULSA Y ESCANEA...
+      </div>
+      <div id="botones">
+        <div id="boton-sonido">
+          <img src="../images/sonido.png" alt="sonido">
         </div>
-        <hr>
-        <div class="item-list">
-          <!-- Ejemplo de artículo en la cesta -->
-          <div class="item">
-            <img src="images/guitarra.jpg" alt="Producto 1" class="product-image">
-            <div class="product-details">
-              <h3 class="product-name">GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS</h3>
-              <p class="product-price">€120.00</p>
-            </div>
-          </div>
-          <!-- Otros artículos en la cesta se pueden agregar aquí -->
-          <hr class="item-separator">
-          <div class="item">
-            <img src="images/guitarra2.jpg" alt="Producto 2" class="product-image">
-            <div class="product-details">
-              <h3 class="product-name">GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER LIMITED CANDY RED BURST HSS PF</h3>
-              <p class="product-price">€140.00</p>
-            </div>
-          </div>
+        <div class="nombre-boton">
+          SONIDO
+        </div>
+        <div id="boton-camara">
+          <img src="../images/camara.png" alt="camara">
+        </div>
+        <div class="nombre-boton">
+          IMAGEN
         </div>
       </div>
-      <div class="checkout">
-        <!-- Contenedor para el precio total -->
-        <div class="subtotal">Subtotal:<span id="totalPrice">0.00</span>€</div>
-        <!-- Botón de comprar -->
-        <button class="btn-buy">Di "COMPRAR"</button>
-        <!-- Imagen de los métodos de pago -->
-        <img src="images/metodos_pago.png" alt="Métodos de pago" class="payment-methods">
-    </div>
-    </div>
+    </section>
 
-    <!-- Contenido de los favoritos -->
-    <div class="favorites invisible">
-    <h2 class="favs-title">FAVORITOS</h2>
-    <div class = 'hr2'></div>
-    <div class="instrument">
-      <img src="images/guitarra.jpg" alt="Instrumento 1" >
-      <div class="instrument-loc">
-      <h3>GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS</h3>
-      <p>Precio: €120.00</p>
+    <section id="escaneando-sonido">
+      <img id="boton-retroceder" src="../images/retroceder.png" alt="atrás">
+      <div id="escuchando">
+        <img src="../images/sonido.png" alt="escuchando">
+        <p>Reconociendo instrumento...</p>
+      </div>
+      <div id="boton-grabar"></div>
+    </section>
+
+    <div id="map"></div>
+
+    <div id="opciones-iconos">
+      <div id="ayuda-eliminar">
+        <img  id="ayuda" src="../images/ayuda.png" alt="ayuda">
+        <img id="eliminar" src="../images/eliminar.png" alt="eliminar">
+      </div>
+      <div id="container-icono-mapa">
+        <img id="boton-mapa" src="../images/mapa.png" alt="mapa">
       </div>
     </div>
-    <div class = 'hr2'></div>
-    <div class="instrument">
-      <img src="images/guitarra2.jpg" alt="Instrumento 2" >
-      <div class="instrument-loc">
-      <h3>GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER LIMITED CANDY RED BURST HSS PF</h3>
-      <p>Precio: €140.00</p>
-      </div>
-    </div>
-  </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+    
+    <script src="script.js"></script>
+  </body>
 </html>
 
