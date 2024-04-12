@@ -44,7 +44,7 @@ botonMapa.addEventListener("touchstart", function() {
 
 // Definir el ícono personalizado
 var customIcon = L.icon({
-  iconUrl: '../images/marcador.png', // Ruta de la imagen del marcador
+  iconUrl: '../../images/marcador.png', // Ruta de la imagen del marcador
   iconSize: [32, 32], // Tamaño de la imagen del marcador
   iconAnchor: [16, 32], // Punto de anclaje del marcador (la parte superior del marcador)
   popupAnchor: [0, -32] // Punto de anclaje del popup (la parte superior del popup)
