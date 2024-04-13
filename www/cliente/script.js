@@ -1,3 +1,16 @@
+// Conexión con el servidor a través de Socket.IO
+var socket = io();
+
+// Emitir evento CLIENT_CONNECTED cuando el cliente se conecta
+console.log("Enviando");
+socket.emit("CLIENT_CONNECTED");
+
+// Manejar evento ACK_CONNECTION del servidor
+socket.on("ACK_CONNECTION", function() {
+  console.log("Conexión establecida con el servidor");
+  // UNA VEZ ESTABLECIDA LA CONEXIÓN...
+});
+
 // Obtenemos referencias a los elementos que necesitamos manipular
 const pantallaPrincipal = document.getElementById("pantalla-principal");
 const escaneandoSonido = document.getElementById("escaneando-sonido");
@@ -44,7 +57,7 @@ botonMapa.addEventListener("touchstart", function() {
 
 // Definir el ícono personalizado
 var customIcon = L.icon({
-  iconUrl: '../../images/marcador.png', // Ruta de la imagen del marcador
+  iconUrl: '../images/marcador.png', // Ruta de la imagen del marcador
   iconSize: [32, 32], // Tamaño de la imagen del marcador
   iconAnchor: [16, 32], // Punto de anclaje del marcador (la parte superior del marcador)
   popupAnchor: [0, -32] // Punto de anclaje del popup (la parte superior del popup)
@@ -110,13 +123,11 @@ botonMapa.addEventListener("touchstart", function() {
 
         // Actualizar la posición del marcador continuamente
         navigator.geolocation.watchPosition(function(position) {
-          var latlng = [position.coords.latitude, position.coords.longitude];
+        var latlng = [position.coords.latitude, position.coords.longitude];
+        
+        // Actualizar la posición del marcador
+        marker.setLatLng(latlng);
 
-          // Actualizar la posición del marcador
-          marker.setLatLng(latlng);
-
-          // Centrar el mapa en las nuevas coordenadas del marcador
-          mymap.setView(latlng);
         });
       });
     } else {

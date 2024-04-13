@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.7.5"
+  }
+}
