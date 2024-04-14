@@ -21,6 +21,13 @@ io.on('connection', (socket) => {
     clientSocket.emit("ACK_CONNECTION");
   });
   
+
+  // Manejar evento cuando se detecta la palabra "comprar"
+  socket.on("PALABRA_COMPRAR", () => {
+    console.log("Se recibió la señal para comprar desde el cliente");
+    io.emit("RECARGAR_PAGINA");
+  });
+
 });
 
 server.listen(3000, () => {

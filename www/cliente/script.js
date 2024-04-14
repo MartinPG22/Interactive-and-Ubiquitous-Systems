@@ -159,3 +159,32 @@ document.getElementById('ayuda').addEventListener('click', function() {
   }
 });
 
+// Función para manejar la detección de la palabra "comprar"
+function reconocerPalabra(palabra) {
+  // Verificar si la palabra reconocida es "comprar"
+  if (palabra.toLowerCase().includes("comprar")) {
+    // Enviar la palabra al servidor
+    socket.emit("PALABRA_COMPRAR");
+    location.reload();
+  }
+}
+
+// Función para iniciar el reconocimiento de voz
+function iniciarReconocimientoVoz() {
+  const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+  recognition.lang = 'es-ES';
+
+  recognition.onresult = function(event) {
+    const palabra = event.results[0][0].transcript;
+    console.log('Palabra reconocida:', palabra);
+    reconocerPalabra(palabra);
+  }
+
+  recognition.start();
+}
+
+// Obtener referencia al botón de grabación
+const botonGrabar = document.getElementById("boton-pago");
+
+// Agregar evento al botón para iniciar el reconocimiento de voz
+botonGrabar.addEventListener("touchstart", iniciarReconocimientoVoz);
