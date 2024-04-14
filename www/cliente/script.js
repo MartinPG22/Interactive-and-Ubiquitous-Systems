@@ -10,11 +10,22 @@ socket.on("ACK_CONNECTION", function() {
   console.log("Conexión establecida con el servidor");
   // UNA VEZ ESTABLECIDA LA CONEXIÓN...
 });
-socket.on("RECARGAR_CARRITO", function() {
-  console.log("recargando..");
-  // UNA VEZ ESTABLECIDA LA CONEXIÓN..
-  window.location.href = "/carrito";
-});
+
+/*socket.on("RECARGAR_CARRITO", function() {
+  console.log("Recargando el carrito...");
+  // Hacer una petición al servidor para recargar la página del servidor
+  fetch('http://localhost:3000/', { method: 'GET' })
+    .then(response => {
+      if (response.ok) {
+        console.log('Página del servidor recargada con éxito');
+      } else {
+        console.error('Error al recargar la página del servidor');
+      }
+    })
+    .catch(error => {
+      console.error('Error al recargar la página del servidor:', error);
+    });
+});*/
 
 // Obtenemos referencias a los elementos que necesitamos manipular
 const pantallaPrincipal = document.getElementById("pantalla-principal");

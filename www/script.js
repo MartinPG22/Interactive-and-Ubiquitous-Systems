@@ -59,3 +59,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+/* Recibir la señal de compra y recargar la página
+const socket = io(); // Inicializar el socket
+socket.on("COMPRA_PROCESADA", () => {
+  console.log("Se recibió la señal de compra. Recargando la página...");
+  location.reload(); // Recargar la página
+});*/
