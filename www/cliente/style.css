@@ -74,7 +74,6 @@ body, html {
   height: 95%;
 }
 
-
 #boton-mapa {
   width: 28%;
   height: 98%;
@@ -241,3 +240,26 @@ body, html {
   margin-top: 10px; /* Ajusta el margen superior del párrafo */
 }
 
+#escaneando {
+  margin-top: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#boton-retroceder-camara {
+  width: 10%;
+  position: fixed; /* Cambiado a fixed para que se mantenga fijo en la ventana */
+  top: 0; /* Lo posiciona en la parte superior */
+  left: 0; /* Lo posiciona en la parte izquierda */
+  padding: 5%;
+}
+
+#escaneando-camara {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
