@@ -149,3 +149,13 @@ botonCentrarMapa.addEventListener("touchstart", function() {
     alert("El marcador no está definido.");
   }
 });
+
+document.getElementById('ayuda').addEventListener('click', function() {
+  var popup = document.getElementById('ayuda-popup');
+  if (popup.style.display === 'none' || popup.style.display === '') {
+      popup.style.display = 'block';
+  } else {
+      popup.style.display = 'none';
+  }
+});
+

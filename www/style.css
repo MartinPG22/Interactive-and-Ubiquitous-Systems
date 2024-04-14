@@ -96,7 +96,7 @@ body, html {
     margin-left: 4%;
     width: 40%; /* Ajusta el ancho del área de cobro */
     height: 180px;  /* Ajusta la altura del área de cobro */
-    padding: 40px; /* Añade espacio al área de cobro */
+    padding: 60px; /* Añade espacio al área de cobro */
     background-color: #a6a6a6; /* Color de fondo del área de cobro */
     border-left: 1px solid #ccc; /* Borde izquierdo */
   }

@@ -100,24 +100,29 @@ body, html {
 #boton-grabar {
   width: 80px;
   height: 80px;
-  border: 4px solid rgb(48, 48, 48); /* Añade un borde negro de 5px alrededor del botón */
+  border: 4px solid rgb(48, 48, 48);
   border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 40%;
-  position: relative; /* Añade posición relativa para posicionar el contenido dentro */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
 }
 
 #boton-grabar::after {
-  content: ""; /* Crea un elemento pseudo-elemento para el fondo blanco */
-  position: absolute; /* Posición absoluta para que se superponga al botón */
-  top: 5px; /* Ajusta según el grosor del borde */
-  left: 5px; /* Ajusta según el grosor del borde */
-  width: calc(100% - 10px); /* Ajusta el ancho para considerar el grosor del borde */
-  height: calc(100% - 10px); /* Ajusta la altura para considerar el grosor del borde */
-  background-color: red; /* Establece el color de fondo blanco */
-  border-radius: 50%; /* Asegura que el fondo tenga la misma forma que el botón */
+  content: ""; 
+  position: absolute; 
+  top: 5px; 
+  left: 5px; 
+  width: calc(100% - 10px); 
+  height: calc(100% - 10px); 
+  background-color: red; 
+  border-radius: 50%; 
 }
+
 
 #boton-retroceder {
   width: 10%;
@@ -186,4 +191,27 @@ body, html {
 #barra-mapa img {
   margin-top: 2%;
   width: 60%;  
+}
+
+#ayuda {
+  cursor: pointer;
+  /* Estilos para dispositivos táctiles */
+  touch-action: manipulation; /* Deshabilita el desplazamiento al tocar */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Evita el destello al tocar */
+}
+#ayuda:active {
+  /* Estilo cuando se toca el botón */
+  opacity: 0.7;
+}
+#ayuda-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 9999;
 }
