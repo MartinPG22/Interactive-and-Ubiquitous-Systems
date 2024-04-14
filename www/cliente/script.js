@@ -10,6 +10,11 @@ socket.on("ACK_CONNECTION", function() {
   console.log("Conexión establecida con el servidor");
   // UNA VEZ ESTABLECIDA LA CONEXIÓN...
 });
+socket.on("RECARGAR_CARRITO", function() {
+  console.log("recargando..");
+  // UNA VEZ ESTABLECIDA LA CONEXIÓN..
+  window.location.href = "/carrito";
+});
 
 // Obtenemos referencias a los elementos que necesitamos manipular
 const pantallaPrincipal = document.getElementById("pantalla-principal");
@@ -165,9 +170,24 @@ function reconocerPalabra(palabra) {
   if (palabra.toLowerCase().includes("comprar")) {
     // Enviar la palabra al servidor
     socket.emit("PALABRA_COMPRAR");
-    location.reload();
+    Swal.fire({
+      title: '¡Compra Procesada!',
+      text: 'La compra ha sido procesada exitosamente.',
+      icon: 'success',
+      timer: 5000, // Cerrar automáticamente después de 5 segundos
+      timerProgressBar: true,
+      toast: true,
+      position: 'top',
+      showConfirmButton: false
+    }).then(() => {
+      // Recargar la página después de cerrar la alerta
+      location.reload();
+    });
   }
 }
+
+
+
 
 // Función para iniciar el reconocimiento de voz
 function iniciarReconocimientoVoz() {
@@ -188,3 +208,4 @@ const botonGrabar = document.getElementById("boton-pago");
 
 // Agregar evento al botón para iniciar el reconocimiento de voz
 botonGrabar.addEventListener("touchstart", iniciarReconocimientoVoz);
+

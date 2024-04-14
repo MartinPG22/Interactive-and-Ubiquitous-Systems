@@ -25,10 +25,12 @@ io.on('connection', (socket) => {
   // Manejar evento cuando se detecta la palabra "comprar"
   socket.on("PALABRA_COMPRAR", () => {
     console.log("Se recibió la señal para comprar desde el cliente");
-    io.emit("RECARGAR_PAGINA");
+    io.emit("RECARCAR_CARRITO");
   });
 
+
 });
+
 
 server.listen(3000, () => {
   console.log("Server listening...");
