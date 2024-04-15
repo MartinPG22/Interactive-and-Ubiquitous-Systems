@@ -259,7 +259,7 @@ async function init() {
     // Configuramos la cámara web
     const flip = true; // Indica si se debe voltear la cámara web
         webcam = new tmImage.Webcam(300, 300, flip); // Creamos una instancia de la clase Webcam con un tamaño de 200x200 y volteo activado
-        await webcam.setup(); // Solicitamos acceso a la cámara web y la inicializamos
+        await webcam.setup({ facingMode: "environment" }); // Solicitamos acceso a la cámara web y la inicializamos
         await webcam.play(); // Comenzamos a reproducir el flujo de vídeo de la cámara web
         window.requestAnimationFrame(loop); // Iniciamos el bucle de actualización de la cámara web
 
@@ -363,7 +363,9 @@ function desactivarGiroscopio() {
 // Agregar evento al botón "Eliminar"
 document.getElementById('eliminar').addEventListener('touchstart', toggleGiroscopio);
 
-    // the link to your model provided by Teachable Machine export panel
+
+////////////////////// Función Sonido ///////////////////////////
+
 const URL_sonido = "https://teachablemachine.withgoogle.com/models/_CsgfPZ0E/";
 
 async function createModel() {
@@ -380,6 +382,8 @@ async function createModel() {
     await recognizer.ensureModelLoaded();
     return recognizer;
 }
+
+
 async function initSonido() {
       
     // Si ya hay un recognizer en uso, detenemos el reconocimiento
@@ -400,6 +404,11 @@ async function initSonido() {
             const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
             labelContainer.childNodes[i].innerHTML = classPrediction;
         }
+
+        // Check if the sound is recognized as a flauta
+        if (scores[classLabels.indexOf("Flauta")] >= 0.75) {
+          socket.emit("AUDIO-RECONOCIDO");}
+        
     }, {
         includeSpectrogram: true, // in case listen should return result.spectrogram
         probabilityThreshold: 0.75,
@@ -408,5 +417,6 @@ async function initSonido() {
     });
 
     // Stop the recognition in 5 seconds.
-    // setTimeout(() => recognizer.stopListening(), 5000);
+    setTimeout(() => recognizer.stopListening(), 10000);
   }
+

@@ -42,6 +42,12 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on("AUDIO-RECONOCIDO", () => {
+    if (socketUI) {
+      socketUI.emit("FLAUTA-RECONOCIDA");
+    }
+  });
+
 });
 
 server.listen(3000, () => {

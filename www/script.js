@@ -21,7 +21,81 @@ socket.on("connect", () => {
     recargarPagina();
   });
 
+  socket.on("FLAUTA-RECONOCIDA", () => {
+    popUpFlautaReconocida();
+  });
+
 });
+
+function popUpFlautaReconocida() {
+  // Crear un elemento de div para la ventana emergente
+  const popup = document.createElement('div');
+  popup.classList.add('popup');
+
+  // Crear un elemento de imagen para la flauta
+  const fluteImage = document.createElement('img');
+  fluteImage.src = 'images/flauta.png';
+  fluteImage.alt = 'Imagen de una flauta';
+  fluteImage.style.display = 'block';
+  fluteImage.style.margin = 'auto';
+
+  // Crear un elemento de párrafo para el nombre del instrumento
+  const nameParagraph = document.createElement('p');
+  nameParagraph.textContent = 'Te recomendamos la siguiente:';
+  nameParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
+  nameParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
+  nameParagraph.style.fontSize = '25px'; // Establecer el tamaño de fuente más grande
+
+  const fParagraph = document.createElement('p');
+  fParagraph.textContent = 'Aulos 509B Symphony Alto Recorder';
+  fParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
+  fParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
+  fParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
+
+
+  // Crear un elemento de párrafo para el nombre del instrumento
+  const recoParagraph = document.createElement('p');
+  recoParagraph.textContent = 'SE HA RECONOCIDO UNA FLAUTA';
+  recoParagraph.style.fontSize = '30px'; // Establecer el tamaño de fuente más grande
+  recoParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
+  recoParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
+
+
+  // Crear un elemento de párrafo para la descripción
+  const descriptionParagraph = document.createElement('p');
+  descriptionParagraph.textContent = 'Esta flauta es un instrumento musical de viento. Produce sonidos melodiosos y es adecuada para músicos de todos los niveles.';
+  descriptionParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
+  descriptionParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
+
+  // Crear un elemento de párrafo para el precio
+  const priceParagraph = document.createElement('p');
+  priceParagraph.textContent = 'Precio: €45'; // Aquí debes reemplazar con el precio real
+  priceParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
+  priceParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
+  priceParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
+
+
+  // Agregar la imagen y el párrafo al div de la ventana emergente
+  popup.appendChild(recoParagraph);
+  popup.appendChild(nameParagraph);
+  popup.appendChild(fParagraph);
+  popup.appendChild(fluteImage);
+  popup.appendChild(descriptionParagraph);
+  popup.appendChild(priceParagraph);
+
+  // Agregar la ventana emergente al cuerpo del documento
+  document.body.appendChild(popup);
+
+  // Establecer estilos CSS para la ventana emergente
+  popup.style.position = 'fixed';
+  popup.style.top = '50%';
+  popup.style.left = '50%';
+  popup.style.transform = 'translate(-50%, -50%)';
+  popup.style.background = 'white';
+  popup.style.padding = '20px';
+  popup.style.border = '2px solid black';
+  popup.style.zIndex = '9999';
+}
 
 function recargarPagina() {
   Swal.fire({
