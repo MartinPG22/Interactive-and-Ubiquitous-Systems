@@ -1,15 +1,16 @@
 // Conexión con el servidor a través de Socket.IO
-var socket = io();
+const socket = io();
 
-// Emitir evento CLIENT_CONNECTED cuando el cliente se conecta
-console.log("Enviando");
-socket.emit("CLIENT_CONNECTED");
+socket.on("connect", () => {
+  socket.emit("CLIENT_CONNECTED");
 
-// Manejar evento ACK_CONNECTION del servidor
-socket.on("ACK_CONNECTION", function() {
-  console.log("Conexión establecida con el servidor");
-  // UNA VEZ ESTABLECIDA LA CONEXIÓN...
+  // Manejar evento ACK_CONNECTION del servidor
+  socket.on("ACK_CONNECTION", function() {
+    console.log("Conexión establecida con el servidor");
+  });
+
 });
+
 
 /*socket.on("RECARGAR_CARRITO", function() {
   console.log("Recargando el carrito...");
@@ -185,7 +186,7 @@ botonCentrarMapa.addEventListener("touchstart", function() {
   }
 });
 
-document.getElementById('ayuda').addEventListener('click', function() {
+document.getElementById('ayuda').addEventListener('touchstart', function() {
   var popup = document.getElementById('ayuda-popup');
   if (popup.style.display === 'none' || popup.style.display === '') {
       popup.style.display = 'block';
@@ -291,5 +292,57 @@ async function predict() {
     predictionsList.push(predictions); // Agrega la lista de predicciones de este fotograma a la lista principal
 }
 
+////////////////////// Función Eliminar ///////////////////////////
+let sumar = 0; // Variable para mantener la suma de los giros
+var giroscopioActivo = false; // Inicialmente desactivado
+var gyroscope = null; // Variable global para el objeto gyroscope
+var botonEliminar = document.getElementById('eliminar');
+
+// Definir la función toggleGiroscopio fuera de activarGiroscopio
+function toggleGiroscopio() {
+    if (!giroscopioActivo) {
+        botonEliminar.style.backgroundColor = '#bbbbbb';
+        activarGiroscopio();
+    } else {
+      botonEliminar.style.backgroundColor = '';
+        desactivarGiroscopio();
+    }
+    giroscopioActivo = !giroscopioActivo;
+}
+
+function activarGiroscopio() {
+    sumar = 0;
+    var umbralGiro = 5;
+    var ultimoBeta = 0;
+
+    gyroscope = new Gyroscope({ frequency: 60 });
+
+    gyroscope.addEventListener('reading', function() {
+        var beta = gyroscope.x;
+
+        if (Math.abs(beta - ultimoBeta) > umbralGiro * 1.5) {
+            if (beta < umbralGiro) {
+                socket.emit("CAMBIAR-INSTRUMENTO");
+                sumar += 1;
+            }
+        }
+
+        ultimoBeta = beta;
+
+        console.log("Suma actual:", sumar);
+    });
+
+    gyroscope.start();
+    console.log("Detección del giroscopio activada");
+}
+
+function desactivarGiroscopio() {
+    gyroscope.stop();
+    console.log("Detección del giroscopio desactivada");
+    socket.emit("ELIMINAR-DIV");
+}
+
+// Agregar evento al botón "Eliminar"
+document.getElementById('eliminar').addEventListener('touchstart', toggleGiroscopio);
 
 

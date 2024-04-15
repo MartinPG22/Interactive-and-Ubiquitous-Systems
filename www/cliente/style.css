@@ -70,13 +70,16 @@ body, html {
 }
 
 #boton-pago {
-  width: 45%;
-  height: 95%;
+  padding: 3px;
+  border-radius: 5px;
+  width: 43%;
+  height: 78%;
 }
 
 #boton-mapa {
+  padding-top: 4px;
   width: 28%;
-  height: 98%;
+  height: 85%;
 }
 
 #boton-centrar-mapa{
@@ -92,10 +95,13 @@ body, html {
 }
 
 #ayuda {
+  padding: 3px;
   width: 12%;
 }
 
 #eliminar {
+  padding: 3px;
+  border-radius: 5px;
   width: 13%;
   margin-left: 10%;
 }
