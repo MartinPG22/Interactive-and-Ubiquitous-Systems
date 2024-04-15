@@ -17,7 +17,27 @@ socket.on("connect", () => {
     eliminarDiv();
   });
 
+  socket.on("RECARGAR_CARRITO", () => {
+    recargarPagina();
+  });
+
 });
+
+function recargarPagina() {
+  Swal.fire({
+    title: '¡Compra Procesada!',
+    text: 'La compra ha sido procesada exitosamente.',
+    icon: 'success',
+    timer: 5000, // Cerrar automáticamente después de 5 segundos
+    timerProgressBar: true,
+    toast: true,
+    position: 'top',
+    showConfirmButton: false
+  }).then(() => {
+    // Llamar a la función para eliminar el contenido de la lista de elementos
+    eliminarContenidoLista();
+  });
+}
 
 document.addEventListener("DOMContentLoaded", function() {
   const cartButton = document.getElementById("cartButton");
@@ -79,12 +99,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 1000);
 });
 
-/* Recibir la señal de compra y recargar la página
-const socket = io(); // Inicializar el socket
-socket.on("COMPRA_PROCESADA", () => {
-  console.log("Se recibió la señal de compra. Recargando la página...");
-  location.reload(); // Recargar la página
-});*/
 
 // Lista de elementos de instrumentos
 var instrumentos = document.querySelectorAll('.item');
@@ -139,3 +153,54 @@ function eliminarDiv() {
       }
   }
 }
+
+// Función para eliminar el contenido de la lista de elementos
+function eliminarContenidoLista() {
+  // Seleccionar el contenedor de la lista de elementos
+  const itemList = document.querySelector('.item-list');
+
+  // Verificar si se encontró el contenedor
+  if (itemList) {
+    // Eliminar todos los elementos hijos del contenedor
+    itemList.innerHTML = '';
+  } else {
+    console.log('No se encontró el contenedor de la lista de elementos.');
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const imagenesPequenas = document.querySelectorAll(".product-image");
+
+  imagenesPequenas.forEach(imagen => {
+    imagen.addEventListener("click", function() {
+      // Clonar la imagen pequeña
+      const imagenEnGrande = this.cloneNode();
+      // Establecer el ID para la imagen en grande
+      imagenEnGrande.id = "imagenEnGrande";
+      // Mostrar la imagen en grande en el contenedor centrado
+      mostrarImagenEnGrande(imagenEnGrande);
+    });
+  });
+
+  // Función para mostrar la imagen en grande centrada en la pantalla
+  function mostrarImagenEnGrande(imagenEnGrande) {
+    // Crear el contenedor para la imagen en grande
+    const imagenEnGrandeContainer = document.createElement("div");
+    imagenEnGrandeContainer.id = "imagenEnGrandeContainer";
+    // Agregar la imagen en grande al contenedor
+    imagenEnGrandeContainer.appendChild(imagenEnGrande);
+    // Agregar el contenedor al cuerpo del documento
+    document.body.appendChild(imagenEnGrandeContainer);
+    // Mostrar el contenedor
+    imagenEnGrandeContainer.style.display = "flex";
+
+    // Ocultar la imagen en grande al hacer clic fuera de ella
+    imagenEnGrandeContainer.addEventListener("click", function(event) {
+      if (event.target === this) {
+        this.style.display = "none";
+      }
+    });
+  }
+});
+
+  

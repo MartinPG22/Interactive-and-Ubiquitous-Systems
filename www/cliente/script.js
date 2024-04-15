@@ -212,7 +212,7 @@ function reconocerPalabra(palabra) {
       showConfirmButton: false
     }).then(() => {
       // Recargar la página después de cerrar la alerta
-      location.reload();
+      //location.reload();
     });
   }
 }

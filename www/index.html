@@ -4,6 +4,7 @@
   <title>HarmonyScan</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Enlace a Font Awesome -->
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 </head>
@@ -46,16 +47,16 @@
         </div>
         <hr>
         <div class="item-list">
-          <!-- Ejemplo de artículo en la cesta -->
           <div class="item">
-            <img src="images/guitarra.jpg" alt="Producto 1" class="product-image">
+            <div class="imagen-pequena-container">
+              <img src="images/flauta.png" alt="Producto 1" class="product-image">
+            </div>
             <div class="product-details">
-              <h3 class="product-name">GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS</h3>
-              <p class="product-price">€120.00</p>
+              <h3 class="product-name"> Aulos 509B Symphony Alto Recorder</h3>
+              <p class="product-price">  €43.00</p>
             </div>
           </div>
-          <!-- Otros artículos en la cesta se pueden agregar aquí -->
-          <div class="item">
+          <!--<div class="item">
             <img src="images/guitarra2.jpg" alt="Producto 2" class="product-image">
             <div class="product-details">
               <h3 class="product-name">GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER LIMITED CANDY RED BURST HSS PF</h3>
@@ -75,8 +76,8 @@
               <h3 class="product-name">GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS</h3>
               <p class="product-price">€120.00</p>
             </div>
-          </div>
-        </div>
+          </div> -->
+        </div> 
       </div>
       <div class="checkout">
         <!-- Contenedor para el precio total -->

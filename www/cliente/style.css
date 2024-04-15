@@ -76,6 +76,11 @@ body, html {
   height: 78%;
 }
 
+#boton-contenedor {
+  padding: 10px;
+  background-color: lightgray; /* Color de fondo inicial */
+}
+
 #boton-mapa {
   padding-top: 4px;
   width: 28%;
