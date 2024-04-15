@@ -274,3 +274,18 @@ body, html {
   justify-content: center;
   align-items: center;
 }
+
+#boton-camara-1 {
+  width: 80px;
+  height: 80px;
+  border: 4px solid rgb(48, 48, 48);
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}

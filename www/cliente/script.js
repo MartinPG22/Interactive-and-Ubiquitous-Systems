@@ -241,7 +241,7 @@ botonGrabar.addEventListener("touchstart", iniciarReconocimientoVoz);
 ////////////////////////// Reconocimiento de imagenes //////////////////////////
 
 // extraemos la url de nuestro modelo, lo holdea google y funciona 
-const URL = "https://teachablemachine.withgoogle.com/models/RZs7GMDB5/";
+const URL = "https://teachablemachine.withgoogle.com/models/OZlbn5-Ct/";
 
 let model, webcam, labelContainer, maxPredictions;
 let predictionsList = []; // Declara una lista para almacenar las predicciones
@@ -258,7 +258,7 @@ async function init() {
 
     // Configuramos la cámara web
     const flip = true; // Indica si se debe voltear la cámara web
-        webcam = new tmImage.Webcam(200, 200, flip); // Creamos una instancia de la clase Webcam con un tamaño de 200x200 y volteo activado
+        webcam = new tmImage.Webcam(300, 300, flip); // Creamos una instancia de la clase Webcam con un tamaño de 200x200 y volteo activado
         await webcam.setup(); // Solicitamos acceso a la cámara web y la inicializamos
         await webcam.play(); // Comenzamos a reproducir el flujo de vídeo de la cámara web
         window.requestAnimationFrame(loop); // Iniciamos el bucle de actualización de la cámara web
@@ -274,22 +274,40 @@ async function init() {
 // La función loop() se llama inicialmente al iniciar el programa, y luego se llama repetidamente a través de window.requestAnimationFrame(loop).
 async function loop() {
     webcam.update(); // haces update de la camara
-    await predict();
-    window.requestAnimationFrame(loop);
+    const flautaNegraDetected = await predict();
+    if (!flautaNegraDetected) {
+      // Si la "flauta negra" no se detectó, continuar con el bucle
+      window.requestAnimationFrame(loop);
+  } else {
+      // Si se detectó la "flauta negra", mostrar el mensaje en el navegador
+      const messageContainer = document.getElementById("message-container-camara");
+      const messageElement = document.createElement("div");
+      messageElement.textContent = "¡Flauta negra detectada! El proceso ha sido detenido.";
+      messageContainer.appendChild(messageElement);
+  }
     }
 
-    // Realiza una predicción con el modelo Teachable Machine y almacena las predicciones en una lista y las manda al container
+// Realiza una predicción con el modelo Teachable Machine y almacena las predicciones en una lista y las manda al container
 async function predict() {
-    const prediction = await model.predict(webcam.canvas);
-    let predictions = []; // Lista temporal para almacenar las predicciones de este fotograma
-    for (let i = 0; i < maxPredictions; i++) {
-        const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction; // Para meterlo en el container
+  const prediction = await model.predict(webcam.canvas);
+  let predictions = []; // Lista temporal para almacenar las predicciones de este fotograma
 
-        predictions.push(classPrediction); // Agrega la predicción a la lista temporal
-    }
-    predictionsList.push(predictions); // Agrega la lista de predicciones de este fotograma a la lista principal
+  // Variable para verificar si se cumple la condición de "flauta negra"
+  let flautaNegraDetected = false;
+
+  for (let i = 0; i < maxPredictions; i++) {
+      const classPrediction =
+              prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+              
+          labelContainer.childNodes[i].innerHTML = classPrediction; // Para meterlo en el container
+      predictions.push(classPrediction); // Agrega la predicción a la lista temporal
+
+      if (prediction[i].className === "flauta negra" && prediction[i].probability >= 0.7) {
+        flautaNegraDetected = true;}
+  }
+  // Verificar si se detectó la "flauta negra" con la probabilidad deseada
+  // Dentro de la función predict()
+  predictionsList.push(predictions); // Agrega la lista de predicciones de este fotograma a la lista principal
 }
 
 ////////////////////// Función Eliminar ///////////////////////////
@@ -345,4 +363,50 @@ function desactivarGiroscopio() {
 // Agregar evento al botón "Eliminar"
 document.getElementById('eliminar').addEventListener('touchstart', toggleGiroscopio);
 
+    // the link to your model provided by Teachable Machine export panel
+const URL_sonido = "https://teachablemachine.withgoogle.com/models/_CsgfPZ0E/";
 
+async function createModel() {
+    const checkpointURL = URL_sonido + "model.json"; // model topology
+    const metadataURL = URL_sonido + "metadata.json"; // model metadata
+
+    const recognizer = speechCommands.create(
+        "BROWSER_FFT", // fourier transform type, not useful to change
+        undefined, // speech commands vocabulary feature, not useful for your models
+        checkpointURL,
+        metadataURL);
+
+    // check that model and metadata are loaded via HTTPS requests.
+    await recognizer.ensureModelLoaded();
+    return recognizer;
+}
+async function initSonido() {
+      
+    // Si ya hay un recognizer en uso, detenemos el reconocimiento
+    const recognizer = await createModel();
+    const classLabels = recognizer.wordLabels(); // get class labels
+    const labelContainer = document.getElementById("label-container-sonido");
+    for (let i = 0; i < classLabels.length; i++) {
+        labelContainer.appendChild(document.createElement("div"));
+    }
+
+    // listen() takes two arguments:
+    // 1. A callback function that is invoked anytime a word is recognized.
+    // 2. A configuration object with adjustable fields
+    recognizer.listen(result => {
+        const scores = result.scores; // probability of prediction for each class
+        // render the probability scores per class
+        for (let i = 0; i < classLabels.length; i++) {
+            const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+    }, {
+        includeSpectrogram: true, // in case listen should return result.spectrogram
+        probabilityThreshold: 0.75,
+        invokeCallbackOnNoiseAndUnknown: true,
+        overlapFactor: 0.50 // probably want between 0.5 and 0.75. More info in README
+    });
+
+    // Stop the recognition in 5 seconds.
+    // setTimeout(() => recognizer.stopListening(), 5000);
+  }

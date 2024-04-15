@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
     <link rel='stylesheet' href='style.css'>
 
   <!-- Make sure you put this AFTER Leaflet's CSS -->
@@ -49,7 +50,8 @@
         <p>Escaneando imagen...</p>
         <div id="label-container"></div>
       </div>
-      <button type="button" onclick="init()">Start</button>
+      <div id="message-container-camara"></div>
+      <button type="button" id= "boton-camara-1" onclick="init()">Start</button>
     </section> 
     
     <section id="escaneando-sonido">
@@ -57,8 +59,9 @@
       <div id="escuchando">
         <img src="../images/sound-8825_256.gif" alt="escuchando">
         <p>Reconociendo sonido...</p>
+        <div id="label-container-sonido"></div>
       </div>
-      <div id="boton-grabar"></div>
+      <button type="button" id= "boton-grabar" onclick="initSonido()">Start</button>
     </section>
 
     <section id="mostrar-mapa">
