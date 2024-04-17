@@ -8,7 +8,6 @@ socket.on("connect", () => {
   socket.on("ACK_CONNECTION", function() {
     console.log("Conexión establecida con el servidor");
   });
-
 });
 
 
@@ -311,7 +310,6 @@ async function predict() {
 }
 
 ////////////////////// Función Eliminar ///////////////////////////
-let sumar = 0; // Variable para mantener la suma de los giros
 var giroscopioActivo = false; // Inicialmente desactivado
 var gyroscope = null; // Variable global para el objeto gyroscope
 var botonEliminar = document.getElementById('eliminar');
@@ -341,7 +339,6 @@ function activarGiroscopio() {
         if (Math.abs(beta - ultimoBeta) > umbralGiro * 1.5) {
             if (beta < umbralGiro) {
                 socket.emit("CAMBIAR-INSTRUMENTO");
-                sumar += 1;
             }
         }
 
@@ -384,14 +381,20 @@ async function createModel() {
 }
 
 
+let instrumentoDetectado = false; // Variable de estado para controlar si se ha detectado un instrumento
+
 async function initSonido() {
-      
     // Si ya hay un recognizer en uso, detenemos el reconocimiento
     const recognizer = await createModel();
     const classLabels = recognizer.wordLabels(); // get class labels
     const labelContainer = document.getElementById("label-container-sonido");
     for (let i = 0; i < classLabels.length; i++) {
         labelContainer.appendChild(document.createElement("div"));
+    }
+
+    // Función para restablecer la variable instrumentoDetectado a false
+    function resetInstrumentoDetectado() {
+        instrumentoDetectado = false;
     }
 
     // listen() takes two arguments:
@@ -406,9 +409,11 @@ async function initSonido() {
         }
 
         // Check if the sound is recognized as a flauta
-        if (scores[classLabels.indexOf("Flauta")] >= 0.75) {
-          socket.emit("AUDIO-RECONOCIDO");}
-        
+        if (scores[classLabels.indexOf("Flauta")] >= 0.75 && !instrumentoDetectado) {
+            socket.emit("AUDIO-RECONOCIDO");
+            instrumentoDetectado = true; // Marcar que se ha detectado un instrumento
+            detectarFavorito();
+        }
     }, {
         includeSpectrogram: true, // in case listen should return result.spectrogram
         probabilityThreshold: 0.75,
@@ -416,7 +421,45 @@ async function initSonido() {
         overlapFactor: 0.50 // probably want between 0.5 and 0.75. More info in README
     });
 
-    // Stop the recognition in 5 seconds.
-    setTimeout(() => recognizer.stopListening(), 10000);
+    // Stop the recognition and reset instrumentoDetectado after 5 seconds.
+    setTimeout(() => {
+        recognizer.stopListening();
+        resetInstrumentoDetectado(); // Resetear instrumentoDetectado a false
+    }, 10000);
+}
+
+function detectarFavorito() {
+  // Comprobar si el navegador soporta el sensor de acelerómetro
+  if (window.DeviceMotionEvent) {
+    // Manejar el evento de cambio de aceleración
+    var listener = function(event) {
+      // Obtener la aceleración en los ejes x, y, z
+      var acceleration = event.accelerationIncludingGravity;
+      
+      // Calcular la aceleración total (módulo del vector de aceleración)
+      var accelerationMagnitude = Math.sqrt(
+        Math.pow(acceleration.x, 2) +
+        Math.pow(acceleration.y, 2) +
+        Math.pow(acceleration.z, 2)
+      );
+
+      // Definir un umbral de agitación
+      var shakeThreshold = 75; 
+
+      // Si la aceleración supera el umbral, emitir el evento "FAVORITO-SELECCIONADO" y detener la detección
+      if (accelerationMagnitude > shakeThreshold) {
+        // Emitir el evento a través de socket.io
+        console.log("detectado");
+        socket.emit("FAVORITO-SELECCIONADO");
+        // Detener la detección removiendo el event listener
+        window.removeEventListener('devicemotion', listener);
+      }
+    };
+    
+    window.addEventListener('devicemotion', listener);
+    
+  } else {
+    console.log('El navegador no soporta el sensor de acelerómetro.');
   }
+}
 

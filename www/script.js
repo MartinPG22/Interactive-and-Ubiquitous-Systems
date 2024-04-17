@@ -25,6 +25,10 @@ socket.on("connect", () => {
     popUpFlautaReconocida();
   });
 
+  socket.on("AÑADIR-A-FAV", () => {
+    console.log("hay que ver que hacemos aquí");
+  });
+
 });
 
 function popUpFlautaReconocida() {
@@ -193,12 +197,16 @@ function cambiarInstrumento() {
   // Cambiar el fondo del elemento actual a negro
   instrumentos[currentIndex].style.backgroundColor = "#b0b0b0";
 
+  // Hacer scroll del elemento actual a la vista si está fuera del rango
+  instrumentos[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+
   // Guardar una referencia al elemento actual como elemento anterior
   elementoAnterior = instrumentos[currentIndex];
 
   // Actualizar el índice al siguiente elemento
   currentIndex = (currentIndex + 1) % instrumentos.length;
 }
+
 
 function eliminarDiv() {
   // Recorrer todos los elementos
