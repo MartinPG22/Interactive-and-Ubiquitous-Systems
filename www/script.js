@@ -317,15 +317,8 @@ function eliminarDiv() {
           
           // Eliminar el elemento
           instrumento.remove();
-          
-          // Obtener el hr que está justo antes del instrumento
-          var hrSeparador = instrumento.previousElementSibling;
 
-          // Verificar si el elemento anterior es un hr y tiene la clase 'item-separador'
-          if (hrSeparador && hrSeparador.classList.contains('item-separator')) {
-              // Eliminar el hr
-              hrSeparador.remove();
-          }
+          i --;
       }
   }
 }
