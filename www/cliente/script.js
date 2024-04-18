@@ -185,31 +185,17 @@ botonCentrarMapa.addEventListener("touchstart", function() {
   }
 });
 
-// Función para manejar la detección de la palabra "comprar"
 function reconocerPalabra(palabra) {
-  // Verificar si la palabra reconocida es "comprar"
-  if (palabra.toLowerCase().includes("comprar")) {
+  const palabraLowerCase = palabra.toLowerCase();
+
+  if (palabraLowerCase.includes("comprar") || palabraLowerCase.includes("pagar")) {
     // Enviar la palabra al servidor
     socket.emit("PALABRA_COMPRAR");
-    Swal.fire({
-      title: '¡Compra Procesada!',
-      text: 'La compra ha sido procesada exitosamente.',
-      icon: 'success',
-      timer: 5000, // Cerrar automáticamente después de 5 segundos
-      timerProgressBar: true,
-      toast: true,
-      position: 'top',
-      showConfirmButton: false
-    }).then(() => {
-      // Recargar la página después de cerrar la alerta
-      //location.reload();
-    });
-  }
-  if (palabra.toLowerCase().includes("ver favoritos")) {
+    mostrarAlerta('¡Compra Procesada!', 'La compra ha sido procesada exitosamente.', 'success');
+  } else if (palabraLowerCase.includes("ver favoritos") || palabraLowerCase.includes("ver mis favoritos") || palabraLowerCase.includes("favoritos")) {
     // Enviar la palabra al servidor
     socket.emit("PALABRA_FAVORITOS");
-  }
-  if (palabra.toLowerCase().includes("ver cesta")) {
+  } else if (palabraLowerCase.includes("ver mi cesta") || palabraLowerCase.includes("cesta") || palabraLowerCase.includes("ver cesta")) {
     // Enviar la palabra al servidor
     socket.emit("PALABRA_CESTA");
   }

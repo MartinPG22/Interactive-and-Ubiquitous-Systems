@@ -42,19 +42,33 @@ socket.on("connect", () => {
 });
 
 function abrirFavoritos() {
-  var favorites = document.querySelector('.favorites');
   var cart = document.querySelector('.cart');
+  var favorites = document.querySelector('.favorites');
 
-  favorites.classList.toggle('invisible');
-  cart.classList.add('invisible');
+  // Si los favoritos están ocultos, los mostramos
+  if (favorites.classList.contains('invisible')) {
+    favorites.classList.remove('invisible');
+  }
+
+  // Si la cesta está visible, la ocultamos
+  if (!cart.classList.contains('invisible')) {
+    cart.classList.add('invisible');
+  }
 }
 
 function abrirCesta() {
   var cart = document.querySelector('.cart');
   var favorites = document.querySelector('.favorites');
 
-  cart.classList.toggle('invisible');
-  favorites.classList.add('invisible');
+  // Si la cesta está oculta, la mostramos
+  if (cart.classList.contains('invisible')) {
+    cart.classList.remove('invisible');
+  }
+
+  // Si los favoritos están visibles, los ocultamos
+  if (!favorites.classList.contains('invisible')) {
+    favorites.classList.add('invisible');
+  }
 }
 
 
