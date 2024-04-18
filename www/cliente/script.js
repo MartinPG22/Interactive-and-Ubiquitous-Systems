@@ -236,6 +236,7 @@ let instrumentoDetectadoCamara = false; // Variable de estado para controlar si 
 
 // Cargamos el modelo y las imágenes
 async function init() {
+
     // Definimos las URLs del modelo y los metadatos
     const modelURL = URL + "model.json"; // URL del archivo model.json
     const metadataURL = URL + "metadata.json"; // URL del archivo metadata.json
@@ -259,6 +260,10 @@ async function init() {
     labelContainer = document.getElementById("label-container"); // Obtenemos el contenedor de etiquetas
     for (let i = 0; i < maxPredictions; i++) { // Creamos un div por cada etiqueta de clase
         labelContainer.appendChild(document.createElement("div"));
+        const botonStart = document.getElementById("boton-camara-1");
+        if (botonStart) {
+            botonStart.style.display = "none";
+      }
     }
     // La camara esta siempre activa y se actualiza en cada frame, no se hace una foto como tal. 
 }
@@ -290,15 +295,35 @@ async function check(prediction) {
       socket.emit("CAMARA-RECONOCIDA");
       instrumentoDetectadoCamara = true; // Marcar que se ha detectado un instrumento
       detectarCestaCamara();
-  }    
-  if (instrumentoDetectadoCamara){   
-      // Detener la cámara después de 5 segundos si se detecta el instrumento
+      // Detener la cámara y limpiar después de 5 segundos
       setTimeout(() => {
-          webcam.stop(); // Detener la cámara
-          instrumentoDetectadoCamara = false;
+          resetApp(); // Llamada a resetApp para limpiar y detener todo
       }, 5000); // 5000 milisegundos son 5 segundos
+  } else {
+      // Si no se detecta ningún instrumento después de 5 segundos, detener la cámara y limpiar
+      setTimeout(() => {
+          if (!instrumentoDetectadoCamara) {
+              resetApp();
+          }
+      }, 8000); // 5000 milisegundos son 5 segundos
   }
 }
+
+function resetApp() {
+if (webcam) {
+webcam.stop(); // Detener la cámara
+webcam = null;
+document.getElementById("webcam-container").innerHTML = ''; // Limpiar el contenedor de la webcam
+labelContainer.innerHTML = ''; // Limpiar el contenedor de las etiquetas
+const botonStart = document.getElementById("boton-camara-1");
+        if (botonStart) {
+            botonStart.style.display = "block"; // Mostrar el botón de inicio
+        }
+}
+instrumentoDetectadoCamara = false;
+console.log("Aplicación reseteada al estado inicial.");
+}
+
 
 function detectarCestaCamara(){
   var giroscopioActivo2 = false; // Inicialmente desactivado
@@ -428,7 +453,7 @@ async function initSonido() {
         }
 
         // Check if the sound is recognized as a flauta
-        if (scores[classLabels.indexOf("Flauta")] >= 0.75 && !instrumentoDetectado) {
+        if (scores[classLabels.indexOf("Flauta")] >= 0.9 && !instrumentoDetectado) {
             socket.emit("AUDIO-RECONOCIDO");
             instrumentoDetectado = true; // Marcar que se ha detectado un instrumento
             detectarFavorito();
@@ -444,7 +469,7 @@ async function initSonido() {
     setTimeout(() => {
         recognizer.stopListening();
         resetInstrumentoDetectado(); // Resetear instrumentoDetectado a false
-    }, 10000);
+    }, 8000);
 }
 
 function detectarFavorito() {

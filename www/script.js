@@ -161,7 +161,7 @@ itemList.appendChild(nuevoItem);
 async function popUpInstrumentoReconocidoFav(instrumento) {
   // Cargar el JSON desde una URL o archivo local
   console.log("popup");
-  const response = await fetch('data/instrumentos_fav.json');
+  const response = await fetch('data/instrumentos.json');
   const data = await response.json();
   console.log(data);
 
@@ -262,7 +262,7 @@ async function popUpInstrumentoReconocidoFav(instrumento) {
 async function popUpInstrumentoReconocidoCesta(instrumento) {
   // Cargar el JSON desde una URL o archivo local
   console.log("popup");
-  const response = await fetch('data/instrumentos_fav.json');
+  const response = await fetch('data/instrumentos_cesta.json');
   const data = await response.json();
   console.log(data);
 
@@ -356,6 +356,7 @@ async function popUpInstrumentoReconocidoCesta(instrumento) {
     setTimeout(() => {
       clearInterval(timer);
       popup.remove();
+
     }, 2000); // 2000 milisegundos = 2 segundos de retraso
   });
 }
