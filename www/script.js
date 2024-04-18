@@ -61,8 +61,6 @@ socket.on("connect", () => {
 
 });
 
-
-
 function cambiarOrdenMenosMas() {
   // Obtener todos los elementos de producto
   const productos = Array.from(document.querySelectorAll(".item"));
@@ -82,10 +80,7 @@ function cambiarOrdenMenosMas() {
   productos.forEach(function(producto) {
       contenedorProductos.appendChild(producto);
   });
-
-
 }
-
 
 function cambiarOrdenMasMenos() {
   // Obtener todos los elementos de producto
@@ -107,7 +102,6 @@ function cambiarOrdenMasMenos() {
       contenedorProductos.appendChild(producto);
   });
 }
-
 
 function abrirFavoritos() {
   var cart = document.querySelector('.cart');
@@ -138,7 +132,6 @@ function abrirCesta() {
     favorites.classList.add('invisible');
   }
 }
-
 
 function añadirProductoFavoritos() {
   console.log("ole");
