@@ -23,7 +23,7 @@ socket.on("connect", () => {
   });
 
   socket.on("FLAUTA-RECONOCIDA", () => {
-    popUpFlautaReconocida();
+    popUpInstrumentoReconocidoFav("flauta");
   });
 
   socket.on("AÑADIR-A-FAV", () => {
@@ -80,60 +80,60 @@ function añadirProductoFavoritos() {
 }
 
 
-function popUpFlautaReconocida() {
+async function popUpInstrumentoReconocidoFav(instrumento) {
+  // Cargar el JSON desde una URL o archivo local
+  console.log("popup");
+  const response = await fetch('data/instrumentos_fav.json');
+  const data = await response.json();
+  console.log(data);
+
+  // Obtener los datos específicos del instrumento del JSON
+  const instrumentData = data[instrumento];
+
   // Crear un elemento de div para la ventana emergente
   const popup = document.createElement('div');
   popup.classList.add('popup');
 
-  // Crear un elemento de imagen para la flauta
-  const fluteImage = document.createElement('img');
-  fluteImage.src = 'images/flauta.png';
-  fluteImage.alt = 'Imagen de una flauta';
-  fluteImage.style.display = 'block';
-  fluteImage.style.margin = 'auto';
-  fluteImage.style.width = '250px'; // Establecer el ancho deseado
-  fluteImage.style.height = 'auto'; // Esto mantendrá la proporción de la imagen
+  // Crear los elementos HTML a partir de los datos del JSON para el instrumento específico
+  const image = document.createElement('img');
+  image.src = instrumentData.image.src;
+  image.alt = instrumentData.image.alt;
 
-  // Crear un elemento de párrafo para el nombre del instrumento
+  // Aplicar estilos de tamaño de la imagen
+  const imageStyle = instrumentData.image.style;
+  if (imageStyle) {
+    Object.keys(imageStyle).forEach(property => {
+      image.style[property] = imageStyle[property];
+    });
+  }
+  
   const nameParagraph = document.createElement('p');
-  nameParagraph.textContent = 'Te recomendamos la siguiente:';
-  nameParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
-  nameParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
-  nameParagraph.style.fontSize = '25px'; // Establecer el tamaño de fuente más grande
+  nameParagraph.textContent = instrumentData.nameParagraph.text;
+  Object.assign(nameParagraph.style, instrumentData.nameParagraph.style);
 
-  const fParagraph = document.createElement('p');
-  fParagraph.textContent = 'Aulos 509B Symphony Alto Recorder';
-  fParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
-  fParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
-  fParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
-  fParagraph.classList.add('descripcion-popup'); // Añadir la clase 'descripcion'
+  const Paragraph = document.createElement('p');
+  Paragraph.textContent = instrumentData.Paragraph.text;
+  Object.assign(Paragraph.style, instrumentData.Paragraph.style);
+  Paragraph.classList.add(instrumentData.Paragraph.class);
 
-  // Crear un elemento de párrafo para el nombre del instrumento
   const recoParagraph = document.createElement('p');
-  recoParagraph.textContent = 'SE HA RECONOCIDO UNA FLAUTA';
-  recoParagraph.style.fontSize = '30px'; // Establecer el tamaño de fuente más grande
-  recoParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
-  recoParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
+  recoParagraph.textContent = instrumentData.recoParagraph.text;
+  Object.assign(recoParagraph.style, instrumentData.recoParagraph.style);
 
-  // Crear un elemento de párrafo para la descripción
   const descriptionParagraph = document.createElement('p');
-  descriptionParagraph.textContent = 'Esta flauta es un instrumento musical de viento. Produce sonidos melodiosos y es adecuada para músicos de todos los niveles. ¡Agita para añadirla a tu cesta!';
-  descriptionParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
-  descriptionParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
+  descriptionParagraph.textContent = instrumentData.descriptionParagraph.text;
+  Object.assign(descriptionParagraph.style, instrumentData.descriptionParagraph.style);
 
-  // Crear un elemento de párrafo para el precio
   const priceParagraph = document.createElement('p');
-  priceParagraph.textContent = 'Precio: €45'; // Aquí debes reemplazar con el precio real
-  priceParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
-  priceParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
-  priceParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
-  fParagraph.classList.add('precio-popup'); // Añadir la clase 'descripcion'
+  priceParagraph.textContent = instrumentData.priceParagraph.text;
+  Object.assign(priceParagraph.style, instrumentData.priceParagraph.style);
+  priceParagraph.classList.add(instrumentData.priceParagraph.class);
 
-  // Agregar la imagen y el párrafo al div de la ventana emergente
-  popup.appendChild(recoParagraph);
+  // Agregar los elementos creados al div de la ventana emergente
   popup.appendChild(nameParagraph);
-  popup.appendChild(fParagraph);
-  popup.appendChild(fluteImage);
+  popup.appendChild(image);
+  popup.appendChild(Paragraph);
+  popup.appendChild(recoParagraph);
   popup.appendChild(descriptionParagraph);
   popup.appendChild(priceParagraph);
 
