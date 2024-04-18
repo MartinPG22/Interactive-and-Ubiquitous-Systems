@@ -205,6 +205,14 @@ function reconocerPalabra(palabra) {
       //location.reload();
     });
   }
+  if (palabra.toLowerCase().includes("ver favoritos")) {
+    // Enviar la palabra al servidor
+    socket.emit("PALABRA_FAVORITOS");
+  }
+  if (palabra.toLowerCase().includes("ver cesta")) {
+    // Enviar la palabra al servidor
+    socket.emit("PALABRA_CESTA");
+  }
 }
 
 // Función para iniciar el reconocimiento de voz
@@ -223,9 +231,13 @@ function iniciarReconocimientoVoz() {
 
 // Obtener referencia al botón de grabación
 const botonGrabar = document.getElementById("boton-pago");
+const botonCesta = document.getElementById("boton-cesta");
+const botonFavs = document.getElementById("boton-favs");
 
 // Agregar evento al botón para iniciar el reconocimiento de voz
 botonGrabar.addEventListener("touchstart", iniciarReconocimientoVoz);
+botonCesta.addEventListener("touchstart", iniciarReconocimientoVoz);
+botonFavs.addEventListener("touchstart", iniciarReconocimientoVoz);
 
 
 ////////////////////////// Reconocimiento de imagenes //////////////////////////
@@ -453,6 +465,8 @@ function detectarFavorito() {
     console.log('El navegador no soporta el sensor de acelerómetro.');
   }
 }
+
+// FUNCIONAMIENTO POPUP DE AYUDA
 
 document.addEventListener('click', function(event) {
   var ayudaPopup = document.getElementById('ayuda-popup');

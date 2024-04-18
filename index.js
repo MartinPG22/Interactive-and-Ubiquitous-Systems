@@ -41,6 +41,16 @@ io.on('connection', (socket) => {
       socketUI.emit("RECARGAR_CARRITO");
     }
   });
+  socket.on("PALABRA_FAVORITOS", () => {
+    if (socketUI) {
+      socketUI.emit("ABRIR_FAVORITOS");
+    }
+  });
+  socket.on("PALABRA_CESTA", () => {
+    if (socketUI) {
+      socketUI.emit("ABRIR_CESTA");
+    }
+  });
 
   socket.on("AUDIO-RECONOCIDO", () => {
     if (socketUI) {

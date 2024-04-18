@@ -21,6 +21,12 @@ socket.on("connect", () => {
   socket.on("RECARGAR_CARRITO", () => {
     recargarPagina();
   });
+  socket.on("ABRIR_FAVORITOS", () => {
+    abrirFavoritos();
+  });
+  socket.on("ABRIR_CESTA", () => {
+    abrirCesta();
+  });
 
   socket.on("FLAUTA-RECONOCIDA", () => {
     popUpInstrumentoReconocidoFav("flauta");
@@ -34,6 +40,23 @@ socket.on("connect", () => {
   });
 
 });
+
+function abrirFavoritos() {
+  var favorites = document.querySelector('.favorites');
+  var cart = document.querySelector('.cart');
+
+  favorites.classList.toggle('invisible');
+  cart.classList.add('invisible');
+}
+
+function abrirCesta() {
+  var cart = document.querySelector('.cart');
+  var favorites = document.querySelector('.favorites');
+
+  cart.classList.toggle('invisible');
+  favorites.classList.add('invisible');
+}
+
 
 function añadirProductoFavoritos() {
   console.log("ole");
