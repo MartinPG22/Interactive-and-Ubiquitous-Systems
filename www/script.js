@@ -33,7 +33,7 @@ socket.on("connect", () => {
   });
 
   socket.on("FLAUTA-RECONOCIDA-CAMARA", () => {
-    popUpInstrumentoReconocidoFav("flauta negra");
+    popUpInstrumentoReconocidoCesta("flauta negra");
   });
 
   socket.on("AÑADIR-A-FAV", () => {
@@ -43,6 +43,12 @@ socket.on("connect", () => {
     }
   });
 
+  socket.on("AÑADIR-A-CESTA", () => {
+    console.log("se añadió alpaca");
+    if (añadido === true){
+      añadirProductoCesta();
+    }
+  });
 });
 
 function abrirFavoritos() {
@@ -118,6 +124,37 @@ function añadirProductoFavoritos() {
 
   // Insertar el nuevo instrumento al contenedor de favoritos
   favoritosContainer.insertBefore(nuevoInstrumento, favoritosContainer.lastElementChild);
+}
+
+function añadirProductoCesta() {
+  console.log("ole cesta ");
+  // Obtener la imagen del div con la clase 'popup'
+  const popupImage = document.querySelector('.popup img').src;
+
+  // Obtenemos la lista donde metemos el item 
+  var itemList = document.querySelector('.item-list');
+
+  // Obtener el texto de descripción del popup
+  const descripcion = document.querySelector('.descripcion-popup').textContent;
+  const precio = document.querySelector('.precio-popup').textContent;
+  const precioNumerico = parseFloat(precio.match(/\d+(\.\d+)?/)[0]);
+  // Crear un nuevo elemento de artículo
+  var nuevoItem = document.createElement('div');
+  nuevoItem.classList.add('item');
+
+  // Crear la estructura interna del nuevo elemento de artículo
+  nuevoItem.innerHTML = `
+  <div class="imagen-pequena-container">
+      <img src="${popupImage}" alt="flauta" class="product-image">
+  </div>
+  <div class="product-details">
+      <h3 class="product-name">${descripcion}"</h3>
+      <p class="product-price">€${precioNumerico.toFixed(2)}</p>
+  </div>
+`;
+
+// Agregar el nuevo elemento de artículo al contenedor de la lista de artículos
+itemList.appendChild(nuevoItem);
 }
 
 
@@ -215,6 +252,107 @@ async function popUpInstrumentoReconocidoFav(instrumento) {
   // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-FAV"
   socket.on("AÑADIR-A-FAV", () => {
     console.log("se añadió ueee");
+    setTimeout(() => {
+      clearInterval(timer);
+      popup.remove();
+    }, 2000); // 2000 milisegundos = 2 segundos de retraso
+  });
+}
+
+async function popUpInstrumentoReconocidoCesta(instrumento) {
+  // Cargar el JSON desde una URL o archivo local
+  console.log("popup");
+  const response = await fetch('data/instrumentos_fav.json');
+  const data = await response.json();
+  console.log(data);
+
+  // Obtener los datos específicos del instrumento del JSON
+  const instrumentData = data[instrumento];
+
+  // Crear un elemento de div para la ventana emergente
+  const popup = document.createElement('div');
+  popup.classList.add('popup');
+
+  // Crear los elementos HTML a partir de los datos del JSON para el instrumento específico
+  const image = document.createElement('img');
+  image.src = instrumentData.image.src;
+  image.alt = instrumentData.image.alt;
+
+  // Aplicar estilos de tamaño de la imagen
+  const imageStyle = instrumentData.image.style;
+  if (imageStyle) {
+    Object.keys(imageStyle).forEach(property => {
+      image.style[property] = imageStyle[property];
+    });
+  }
+  
+  const nameParagraph = document.createElement('p');
+  nameParagraph.textContent = instrumentData.nameParagraph.text;
+  Object.assign(nameParagraph.style, instrumentData.nameParagraph.style);
+
+  const Paragraph = document.createElement('p');
+  Paragraph.textContent = instrumentData.Paragraph.text;
+  Object.assign(Paragraph.style, instrumentData.Paragraph.style);
+  Paragraph.classList.add(instrumentData.Paragraph.class);
+
+  const recoParagraph = document.createElement('p');
+  recoParagraph.textContent = instrumentData.recoParagraph.text;
+  Object.assign(recoParagraph.style, instrumentData.recoParagraph.style);
+
+  const descriptionParagraph = document.createElement('p');
+  descriptionParagraph.textContent = instrumentData.descriptionParagraph.text;
+  Object.assign(descriptionParagraph.style, instrumentData.descriptionParagraph.style);
+
+  const priceParagraph = document.createElement('p');
+  priceParagraph.textContent = instrumentData.priceParagraph.text;
+  Object.assign(priceParagraph.style, instrumentData.priceParagraph.style);
+  priceParagraph.classList.add(instrumentData.priceParagraph.class);
+
+  // Agregar los elementos creados al div de la ventana emergente
+  popup.appendChild(nameParagraph);
+  popup.appendChild(image);
+  popup.appendChild(Paragraph);
+  popup.appendChild(recoParagraph);
+  popup.appendChild(descriptionParagraph);
+  popup.appendChild(priceParagraph);
+
+  // Agregar la ventana emergente al cuerpo del documento
+  document.body.appendChild(popup);
+
+  // Establecer estilos CSS para la ventana emergente
+  popup.style.position = 'fixed';
+  popup.style.top = '50%';
+  popup.style.left = '50%';
+  popup.style.transform = 'translate(-50%, -50%)';
+  popup.style.background = 'white';
+  popup.style.padding = '20px';
+  popup.style.border = '2px solid black';
+  popup.style.zIndex = '9999';
+  popup.style.maxHeight = '80%'; // Establecer la altura máxima
+
+  // Crear la barra de tiempo
+  const timeBar = document.createElement('div');
+  timeBar.classList.add('time-bar');
+  timeBar.style.width = '100%';
+  timeBar.style.height = '10px';
+  timeBar.style.background = '#C6FF93'; // Color de la barra de tiempo
+  timeBar.style.position = 'absolute';
+  timeBar.style.bottom = '0';
+  timeBar.style.borderRadius = '5px';
+  popup.appendChild(timeBar);
+
+  // Cambiar el tamaño de la barra de tiempo gradualmente
+  const timer = changeSize(timeBar);
+
+  // Desaparecer la ventana emergente cuando se complete el tiempo
+  setTimeout(() => {
+    clearInterval(timer);
+    popup.remove();
+  }, 10000); // 10000 milisegundos = 10 segundos
+
+  // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-FAV"
+  socket.on("AÑADIR-A-CESTA", () => {
+    console.log("se quita ventana");
     setTimeout(() => {
       clearInterval(timer);
       popup.remove();
@@ -341,7 +479,6 @@ function cambiarInstrumento() {
   // Actualizar el índice al siguiente elemento
   currentIndex = (currentIndex + 1) % instrumentos.length;
 }
-
 
 function eliminarDiv() {
   // Recorrer todos los elementos

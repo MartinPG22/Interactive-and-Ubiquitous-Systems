@@ -70,6 +70,12 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on("CESTA-SELECCIONADO", () => {
+    if (socketUI) {
+      socketUI.emit("AÑADIR-A-CESTA");
+    }
+  });
+
 });
 
 server.listen(3000, () => {

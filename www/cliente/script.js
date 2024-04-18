@@ -284,15 +284,12 @@ async function predict() {
 }
 
 async function check(prediction) {
-  // Obtener el array de clases
-  const classLabels = model.getClassLabels();
   // Check if the sound is recognized as a flauta
   console.log(prediction[0].probability)
   if (prediction[0].probability >= 0.75 && !instrumentoDetectadoCamara) {
       socket.emit("CAMARA-RECONOCIDA");
-      console.log(' casi casi lo conseguimos bitches')
       instrumentoDetectadoCamara = true; // Marcar que se ha detectado un instrumento
-      //detectarFavoritoCamara();
+      detectarCestaCamara();
   }    
   if (instrumentoDetectadoCamara){   
       // Detener la cámara después de 5 segundos si se detecta el instrumento
@@ -303,24 +300,25 @@ async function check(prediction) {
   }
 }
 
-function detectarFavoritoCamara(){
+function detectarCestaCamara(){
   var giroscopioActivo2 = false; // Inicialmente desactivado
   var gyroscope2 = null; // Variable global para el objeto gyroscope
 
   if (!giroscopioActivo2) {
+    console.log('punto 1')
     sumar = 0;
     var umbralGiro = 5;
     var ultimoBeta = 0;
     gyroscope2 = new Gyroscope({ frequency: 60 });
     gyroscope2.addEventListener('reading', function() {
-        var beta = gyroscope2.y;
+        var beta = gyroscope2.z;
         if (Math.abs(beta - ultimoBeta) > umbralGiro * 1.5) {
             if (beta < umbralGiro) {
-                socket.emit("FAVORITO-SELECCIONADO");
+                socket.emit("CESTA-SELECCIONADO");
+                console.log('punto 2')
             }
         }
         ultimoBeta = beta;
-        console.log("Suma actual:", sumar);
     });
     gyroscope2.start();
     console.log("Detección del giroscopio activada");
