@@ -21,6 +21,7 @@ socket.on("connect", () => {
   socket.on("RECARGAR_CARRITO", () => {
     recargarPagina();
   });
+  
   socket.on("ABRIR_FAVORITOS", () => {
     abrirFavoritos();
   });
@@ -49,7 +50,64 @@ socket.on("connect", () => {
       añadirProductoCesta();
     }
   });
+
+  socket.on("CAMBIAR-ORDEN-MENOR-MAYOR", () => {
+    cambiarOrdenMenosMas();
+  });
+
+  socket.on("CAMBIAR-ORDEN-MAYOR-MENOR", () => {
+    cambiarOrdenMasMenos();
+  });
+
 });
+
+
+
+function cambiarOrdenMenosMas() {
+  // Obtener todos los elementos de producto
+  const productos = Array.from(document.querySelectorAll(".item"));
+
+  // Ordenar los productos por precio de menor a mayor
+  productos.sort(function(a, b) {
+      const precioA = parseFloat(a.querySelector(".product-price").textContent.trim().replace("€", ""));
+      const precioB = parseFloat(b.querySelector(".product-price").textContent.trim().replace("€", ""));
+      return precioA - precioB;
+  });
+
+  // Vaciar el contenedor de productos
+  const contenedorProductos = document.querySelector(".item-list");
+  contenedorProductos.innerHTML = "";
+
+  // Agregar los productos ordenados al contenedor
+  productos.forEach(function(producto) {
+      contenedorProductos.appendChild(producto);
+  });
+
+
+}
+
+
+function cambiarOrdenMasMenos() {
+  // Obtener todos los elementos de producto
+  const productos = Array.from(document.querySelectorAll(".item"));
+
+  // Ordenar los productos por precio de mayor a menor
+  productos.sort(function(a, b) {
+      const precioA = parseFloat(a.querySelector(".product-price").textContent.trim().replace("€", ""));
+      const precioB = parseFloat(b.querySelector(".product-price").textContent.trim().replace("€", ""));
+      return precioB - precioA;
+  });
+
+  // Vaciar el contenedor de productos
+  const contenedorProductos = document.querySelector(".item-list");
+  contenedorProductos.innerHTML = "";
+
+  // Agregar los productos ordenados al contenedor
+  productos.forEach(function(producto) {
+      contenedorProductos.appendChild(producto);
+  });
+}
+
 
 function abrirFavoritos() {
   var cart = document.querySelector('.cart');

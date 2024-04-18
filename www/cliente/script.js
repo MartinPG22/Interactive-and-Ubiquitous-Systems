@@ -188,18 +188,40 @@ botonCentrarMapa.addEventListener("touchstart", function() {
 function reconocerPalabra(palabra) {
   const palabraLowerCase = palabra.toLowerCase();
 
-  if (palabraLowerCase.includes("comprar") || palabraLowerCase.includes("pagar")) {
-    // Enviar la palabra al servidor
-    socket.emit("PALABRA_COMPRAR");
-    mostrarAlerta('¡Compra Procesada!', 'La compra ha sido procesada exitosamente.', 'success');
-  } else if (palabraLowerCase.includes("ver favoritos") || palabraLowerCase.includes("ver mis favoritos") || palabraLowerCase.includes("favoritos")) {
-    // Enviar la palabra al servidor
-    socket.emit("PALABRA_FAVORITOS");
-  } else if (palabraLowerCase.includes("ver mi cesta") || palabraLowerCase.includes("cesta") || palabraLowerCase.includes("ver cesta")) {
-    // Enviar la palabra al servidor
-    socket.emit("PALABRA_CESTA");
+  // Mapeo de palabras clave a acciones
+  const acciones = {
+    "comprar": {
+      action: "PALABRA_COMPRAR",
+      message: "¡Compra Procesada!",
+      alertMessage: "La compra ha sido procesada exitosamente.",
+      alertType: "success"
+    },
+    "ordenar menos a más": "ORDEN-MENOR-MAYOR",
+    "ordenar menor a mayor": "ORDEN-MENOR-MAYOR",
+    "ordenar más a menos": "ORDEN-MAYOR-MENOR",
+    "ordenar mayor a menor": "ORDEN-MAYOR-MENOR",
+    "ver favoritos": "PALABRA_FAVORITOS",
+    "ver mis favoritos": "PALABRA_FAVORITOS",
+    "favoritos": "PALABRA_FAVORITOS",
+    "ver mi cesta": "PALABRA_CESTA",
+    "cesta": "PALABRA_CESTA",
+    "ver cesta": "PALABRA_CESTA"
+  };
+
+  // Verificar si la palabra está en el mapeo de acciones
+  if (palabraLowerCase in acciones) {
+    const action = acciones[palabraLowerCase];
+    if (typeof action === "string") {
+      // Enviar la acción correspondiente al servidor
+      socket.emit(action);
+    } else {
+      // Enviar la acción y mostrar la alerta correspondiente
+      socket.emit(action.action);
+      mostrarAlerta(action.message, action.alertMessage, action.alertType);
+    }
   }
 }
+
 
 // Función para iniciar el reconocimiento de voz
 function iniciarReconocimientoVoz() {

@@ -41,6 +41,7 @@ io.on('connection', (socket) => {
       socketUI.emit("RECARGAR_CARRITO");
     }
   });
+
   socket.on("PALABRA_FAVORITOS", () => {
     if (socketUI) {
       socketUI.emit("ABRIR_FAVORITOS");
@@ -73,6 +74,17 @@ io.on('connection', (socket) => {
   socket.on("CESTA-SELECCIONADO", () => {
     if (socketUI) {
       socketUI.emit("AÑADIR-A-CESTA");
+    }
+  });
+
+  socket.on("ORDEN-MENOR-MAYOR", () => {
+    if (socketUI) {
+      socketUI.emit("CAMBIAR-ORDEN-MENOR-MAYOR");
+    }
+  });
+  socket.on("ORDEN-MAYOR-MENOR", () => {
+    if (socketUI) {
+      socketUI.emit("CAMBIAR-ORDEN-MAYOR-MENOR");
     }
   });
 
