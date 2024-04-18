@@ -1,4 +1,5 @@
 const socket = io(); // Inicializar el socket
+let añadido = true;
 
 socket.on("connect", () => {
   console.log("ready");
@@ -26,10 +27,57 @@ socket.on("connect", () => {
   });
 
   socket.on("AÑADIR-A-FAV", () => {
-    console.log("hay que ver que hacemos aquí");
+    console.log("se añadió ueee");
+    if (añadido === true){
+      añadirProductoFavoritos();
+    }
   });
 
 });
+
+function añadirProductoFavoritos() {
+  console.log("ole");
+  // Obtener la imagen del div con la clase 'popup'
+  const popupImage = document.querySelector('.popup img');
+  // Obtener el texto de descripción del popup
+  const descripcion = document.querySelector('.descripcion-popup').textContent;
+  const precio = document.querySelector('.precio-popup').textContent;
+
+  // Crear un nuevo elemento de instrumento
+  const nuevoInstrumento = document.createElement('div');
+  nuevoInstrumento.classList.add('instrument');
+
+  // Crear un elemento de imagen para el nuevo instrumento
+  const imagen = document.createElement('img');
+  imagen.src = popupImage.src;
+  imagen.alt = 'Instrumento';
+
+  // Crear un contenedor para la descripción del instrumento
+  const instrumentLoc = document.createElement('div');
+  instrumentLoc.classList.add('instrument-loc');
+
+  // Crear un encabezado para la descripción del instrumento
+  const h3 = document.createElement('h3');
+  h3.textContent = descripcion;
+
+  // Crear un párrafo para el precio del instrumento (precio simulado)
+  const favprecio = document.createElement('p');
+  favprecio.textContent = precio; // Debes reemplazar esto con el precio real
+
+  // Agregar la imagen y la descripción al contenedor del instrumento
+  instrumentLoc.appendChild(h3);
+  instrumentLoc.appendChild(precio);
+
+  // Agregar la imagen y el contenedor de descripción al nuevo instrumento
+  nuevoInstrumento.appendChild(imagen);
+  nuevoInstrumento.appendChild(instrumentLoc);
+
+  // Obtener el contenedor de favoritos
+  const favoritosContainer = document.querySelector('.favorites');
+
+  // Insertar el nuevo instrumento al contenedor de favoritos
+  favoritosContainer.insertBefore(nuevoInstrumento, favoritosContainer.lastElementChild);
+}
 
 function popUpFlautaReconocida() {
   // Crear un elemento de div para la ventana emergente
@@ -42,6 +90,8 @@ function popUpFlautaReconocida() {
   fluteImage.alt = 'Imagen de una flauta';
   fluteImage.style.display = 'block';
   fluteImage.style.margin = 'auto';
+  fluteImage.style.width = '250px'; // Establecer el ancho deseado
+  fluteImage.style.height = 'auto'; // Esto mantendrá la proporción de la imagen
 
   // Crear un elemento de párrafo para el nombre del instrumento
   const nameParagraph = document.createElement('p');
@@ -55,7 +105,7 @@ function popUpFlautaReconocida() {
   fParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
   fParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
   fParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
-
+  fParagraph.classList.add('descripcion-popup'); // Añadir la clase 'descripcion'
 
   // Crear un elemento de párrafo para el nombre del instrumento
   const recoParagraph = document.createElement('p');
@@ -63,7 +113,6 @@ function popUpFlautaReconocida() {
   recoParagraph.style.fontSize = '30px'; // Establecer el tamaño de fuente más grande
   recoParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
   recoParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
-
 
   // Crear un elemento de párrafo para la descripción
   const descriptionParagraph = document.createElement('p');
@@ -77,7 +126,7 @@ function popUpFlautaReconocida() {
   priceParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
   priceParagraph.style.fontWeight = 'bold'; // Establecer el peso de la fuente en negrita
   priceParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
-
+  fParagraph.classList.add('precio-popup'); // Añadir la clase 'descripcion'
 
   // Agregar la imagen y el párrafo al div de la ventana emergente
   popup.appendChild(recoParagraph);
@@ -99,6 +148,43 @@ function popUpFlautaReconocida() {
   popup.style.padding = '20px';
   popup.style.border = '2px solid black';
   popup.style.zIndex = '9999';
+  popup.style.maxHeight = '80%'; // Establecer la altura máxima
+
+  // Crear la barra de tiempo
+  const timeBar = document.createElement('div');
+  timeBar.classList.add('time-bar');
+  timeBar.style.width = '100%';
+  timeBar.style.height = '10px';
+  timeBar.style.background = '#C6FF93'; // Color de la barra de tiempo
+  timeBar.style.position = 'absolute';
+  timeBar.style.bottom = '0';
+  timeBar.style.borderRadius = '5px';
+  popup.appendChild(timeBar);
+
+  // Cambiar el tamaño de la barra de tiempo gradualmente
+  changeSize(timeBar);
+
+  // Desaparecer la ventana emergente cuando se complete la barra de tiempo
+  setTimeout(() => {
+    añadido = false;
+    popup.remove();
+  }, 10000); 
+
+  añadido = true;
+}
+
+function changeSize(element) {
+  let width = 100; // Anchura inicial de la barra de tiempo
+  const interval = 50; // Intervalo de tiempo en milisegundos
+  const decreaseRate = 0.5; // Tasa de disminución del ancho de la barra de tiempo
+
+  const sizeInterval = setInterval(() => {
+    width -= decreaseRate;
+    if (width <= 0) {
+      clearInterval(sizeInterval);
+    }
+    element.style.width = `${width}%`;
+  }, interval);
 }
 
 function recargarPagina() {

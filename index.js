@@ -48,9 +48,7 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Por qué no llega aqui??? xdddd
   socket.on("FAVORITO-SELECCIONADO", () => {
-    console.log("jjj");
     if (socketUI) {
       socketUI.emit("AÑADIR-A-FAV");
     }

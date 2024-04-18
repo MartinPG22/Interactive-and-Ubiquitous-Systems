@@ -430,6 +430,7 @@ async function initSonido() {
 
 function detectarFavorito() {
   // Comprobar si el navegador soporta el sensor de acelerómetro
+  console.log("Agita...");
   if (window.DeviceMotionEvent) {
     // Manejar el evento de cambio de aceleración
     var listener = function(event) {
@@ -448,7 +449,6 @@ function detectarFavorito() {
 
       // Si la aceleración supera el umbral, emitir el evento "FAVORITO-SELECCIONADO" y detener la detección
       if (accelerationMagnitude > shakeThreshold) {
-        // Emitir el evento a través de socket.io
         console.log("detectado");
         socket.emit("FAVORITO-SELECCIONADO");
         // Detener la detección removiendo el event listener

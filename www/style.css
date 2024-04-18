@@ -88,11 +88,12 @@ body, html {
   }
   
   .instrument {
-    width: 100%;
+    width: 1300px;
     padding: 10px;
-    margin-left: 10%;
+    margin-left: 6%;
     display: flex;
     flex-direction: row;
+    border-bottom: 1px solid black; /* Añadir borde superior negro */
   }
   
   .instrument-loc{
