@@ -58,6 +58,12 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on("CAMARA-RECONOCIDA", () => {
+    if (socketUI) {
+      socketUI.emit("FLAUTA-RECONOCIDA-CAMARA");
+    }
+  });
+
   socket.on("FAVORITO-SELECCIONADO", () => {
     if (socketUI) {
       socketUI.emit("AÑADIR-A-FAV");

@@ -32,6 +32,10 @@ socket.on("connect", () => {
     popUpInstrumentoReconocidoFav("flauta");
   });
 
+  socket.on("FLAUTA-RECONOCIDA-CAMARA", () => {
+    popUpInstrumentoReconocidoFav("flauta negra");
+  });
+
   socket.on("AÑADIR-A-FAV", () => {
     console.log("se añadió ueee");
     if (añadido === true){

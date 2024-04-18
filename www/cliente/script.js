@@ -232,7 +232,7 @@ botonFavs.addEventListener("touchstart", iniciarReconocimientoVoz);
 const URL = "https://teachablemachine.withgoogle.com/models/OZlbn5-Ct/";
 
 let model, webcam, labelContainer, maxPredictions;
-let predictionsList = []; // Declara una lista para almacenar las predicciones
+let instrumentoDetectadoCamara = false; // Variable de estado para controlar si se ha detectado un instrumento
 
 // Cargamos el modelo y las imágenes
 async function init() {
@@ -244,8 +244,11 @@ async function init() {
     model = await tmImage.load(modelURL, metadataURL); // Cargamos el modelo y los metadatos desde las URLs definidas
     maxPredictions = model.getTotalClasses(); // Obtenemos el número total de clases del modelo
 
+    // Obtener el array de clases
+    const classLabels = model.getClassLabels();
+
     // Configuramos la cámara web
-    const flip = true; // Indica si se debe voltear la cámara web
+    const flip = false; // Indica si se debe voltear la cámara web
         webcam = new tmImage.Webcam(300, 300, flip); // Creamos una instancia de la clase Webcam con un tamaño de 200x200 y volteo activado
         await webcam.setup({ facingMode: "environment" }); // Solicitamos acceso a la cámara web y la inicializamos
         await webcam.play(); // Comenzamos a reproducir el flujo de vídeo de la cámara web
@@ -262,41 +265,71 @@ async function init() {
 // La función loop() se llama inicialmente al iniciar el programa, y luego se llama repetidamente a través de window.requestAnimationFrame(loop).
 async function loop() {
     webcam.update(); // haces update de la camara
-    const flautaNegraDetected = await predict();
-    if (!flautaNegraDetected) {
-      // Si la "flauta negra" no se detectó, continuar con el bucle
-      window.requestAnimationFrame(loop);
-  } else {
-      // Si se detectó la "flauta negra", mostrar el mensaje en el navegador
-      const messageContainer = document.getElementById("message-container-camara");
-      const messageElement = document.createElement("div");
-      messageElement.textContent = "¡Flauta negra detectada! El proceso ha sido detenido.";
-      messageContainer.appendChild(messageElement);
-  }
+    prediccion = await predict();
+    await check(prediccion);
+    window.requestAnimationFrame(loop);
+    console.log('checkpoint1')
     }
 
 // Realiza una predicción con el modelo Teachable Machine y almacena las predicciones en una lista y las manda al container
 async function predict() {
   const prediction = await model.predict(webcam.canvas);
-  let predictions = []; // Lista temporal para almacenar las predicciones de este fotograma
-
-  // Variable para verificar si se cumple la condición de "flauta negra"
-  let flautaNegraDetected = false;
-
+  console.log(prediction)
   for (let i = 0; i < maxPredictions; i++) {
       const classPrediction =
               prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-              
-          labelContainer.childNodes[i].innerHTML = classPrediction; // Para meterlo en el container
-      predictions.push(classPrediction); // Agrega la predicción a la lista temporal
-
-      if (prediction[i].className === "flauta negra" && prediction[i].probability >= 0.7) {
-        flautaNegraDetected = true;}
+          labelContainer.childNodes[i].innerHTML = classPrediction; // Para meterlo en el container  
   }
-  // Verificar si se detectó la "flauta negra" con la probabilidad deseada
-  // Dentro de la función predict()
-  predictionsList.push(predictions); // Agrega la lista de predicciones de este fotograma a la lista principal
+  return prediction;
 }
+
+async function check(prediction) {
+  // Obtener el array de clases
+  const classLabels = model.getClassLabels();
+  // Check if the sound is recognized as a flauta
+  console.log(prediction[0].probability)
+  if (prediction[0].probability >= 0.75 && !instrumentoDetectadoCamara) {
+      socket.emit("CAMARA-RECONOCIDA");
+      console.log(' casi casi lo conseguimos bitches')
+      instrumentoDetectadoCamara = true; // Marcar que se ha detectado un instrumento
+      //detectarFavoritoCamara();
+  }    
+  if (instrumentoDetectadoCamara){   
+      // Detener la cámara después de 5 segundos si se detecta el instrumento
+      setTimeout(() => {
+          webcam.stop(); // Detener la cámara
+          instrumentoDetectadoCamara = false;
+      }, 5000); // 5000 milisegundos son 5 segundos
+  }
+}
+
+function detectarFavoritoCamara(){
+  var giroscopioActivo2 = false; // Inicialmente desactivado
+  var gyroscope2 = null; // Variable global para el objeto gyroscope
+
+  if (!giroscopioActivo2) {
+    sumar = 0;
+    var umbralGiro = 5;
+    var ultimoBeta = 0;
+    gyroscope2 = new Gyroscope({ frequency: 60 });
+    gyroscope2.addEventListener('reading', function() {
+        var beta = gyroscope2.y;
+        if (Math.abs(beta - ultimoBeta) > umbralGiro * 1.5) {
+            if (beta < umbralGiro) {
+                socket.emit("FAVORITO-SELECCIONADO");
+            }
+        }
+        ultimoBeta = beta;
+        console.log("Suma actual:", sumar);
+    });
+    gyroscope2.start();
+    console.log("Detección del giroscopio activada");
+  } else {
+    gyroscope2.stop();
+    console.log("Detección del giroscopio desactivada");
+  }
+  giroscopioActivo2 = !giroscopioActivo2;
+  }
 
 ////////////////////// Función Eliminar ///////////////////////////
 var giroscopioActivo = false; // Inicialmente desactivado
@@ -368,7 +401,6 @@ async function createModel() {
     await recognizer.ensureModelLoaded();
     return recognizer;
 }
-
 
 let instrumentoDetectado = false; // Variable de estado para controlar si se ha detectado un instrumento
 

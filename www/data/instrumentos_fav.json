@@ -51,5 +51,58 @@
       },
       "class": "precio-popup"
     }
+  },
+  "flauta negra": {
+    "image": {
+      "src": "images/flauta.png",
+      "alt": "Imagen de una flauta negra",
+      "style": {
+        "display": "block",
+        "margin": "auto",
+        "width": "200px",
+        "height": "auto"
+      }
+    },
+    "nameParagraph": {
+      "text": "Te recomendamos la siguiente:",
+      "style": {
+        "fontWeight": "bold",
+        "textAlign": "center",
+        "fontSize": "25px"
+      }
+    },
+    "Paragraph": {
+      "text": "Aulos 709B Symphony Alto Recorder",
+      "style": {
+        "fontWeight": "bold",
+        "textAlign": "center",
+        "fontSize": "20px"
+      },
+      "class": "descripcion-popup"
+    },
+    "recoParagraph": {
+      "text": "SE HA RECONOCIDO UNA FLAUTA",
+      "style": {
+        "fontSize": "30px",
+        "fontWeight": "bold",
+        "textAlign": "center"
+      }
+    },
+    "descriptionParagraph": {
+      "text": "Esta flauta es un instrumento musical de viento. Produce sonidos melodiosos y es adecuada para músicos de todos los niveles.",
+      "style": {
+        "fontSize": "20px",
+        "textAlign": "center"
+      }
+    },
+    "priceParagraph": {
+      "text": "Precio: €55",
+      "style": {
+        "fontSize": "20px",
+        "fontWeight": "bold",
+        "textAlign": "center"
+      },
+      "class": "precio-popup"
+    }
   }
 }
