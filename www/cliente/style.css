@@ -76,6 +76,7 @@ body, html {
   height: 78%;
 }
 
+
 #boton-contenedor {
   padding: 10px;
   background-color: lightgray; /* Color de fondo inicial */
@@ -242,6 +243,9 @@ body, html {
 }
 
 #ayuda-popup h2 {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   font-size: 1.5rem; /* Tamaño del texto del título */
 }
 
@@ -249,6 +253,15 @@ body, html {
   font-size: 1rem; /* Tamaño del texto del párrafo */
   font-weight: 50px;
   margin-top: 10px; /* Ajusta el margen superior del párrafo */
+}
+
+.contenido {
+  display: none;
+  margin-left: 9%;
+}
+.etiqueta{
+  margin-left: 5%;
+  font-weight: 500;
 }
 
 #escaneando {

@@ -185,15 +185,6 @@ botonCentrarMapa.addEventListener("touchstart", function() {
   }
 });
 
-document.getElementById('ayuda').addEventListener('touchstart', function() {
-  var popup = document.getElementById('ayuda-popup');
-  if (popup.style.display === 'none' || popup.style.display === '') {
-      popup.style.display = 'block';
-  } else {
-      popup.style.display = 'none';
-  }
-});
-
 // Función para manejar la detección de la palabra "comprar"
 function reconocerPalabra(palabra) {
   // Verificar si la palabra reconocida es "comprar"
@@ -463,3 +454,30 @@ function detectarFavorito() {
   }
 }
 
+document.addEventListener('click', function(event) {
+  var ayudaPopup = document.getElementById('ayuda-popup');
+  var botonAyuda = document.getElementById('ayuda');
+  if (!ayudaPopup.contains(event.target) && event.target !== botonAyuda) {
+    ayudaPopup.style.display = 'none';
+  }
+});
+// Abrir o cerrar el popup de ayuda al hacer clic en el icono
+document.getElementById('ayuda').addEventListener('click', function() {
+  var ayudaPopup = document.getElementById('ayuda-popup');
+  ayudaPopup.style.display = (ayudaPopup.style.display === 'block') ? 'none' : 'block';
+});
+
+const etiquetas = document.querySelectorAll('.etiqueta');
+etiquetas.forEach(etiqueta => {
+  etiqueta.addEventListener('touchstart', () => {
+    const contenido = etiqueta.nextElementSibling;
+    // Oculta todos los contenidos excepto el seleccionado
+    document.querySelectorAll('.contenido').forEach(elemento => {
+      if (elemento !== contenido) {
+        elemento.style.display = 'none';
+      }
+    });
+    // Muestra o oculta el contenido seleccionado
+    contenido.style.display = contenido.style.display === 'none' ? 'block' : 'none';
+  });
+});
