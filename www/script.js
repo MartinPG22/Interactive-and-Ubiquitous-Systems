@@ -61,12 +61,12 @@ function añadirProductoFavoritos() {
   h3.textContent = descripcion;
 
   // Crear un párrafo para el precio del instrumento (precio simulado)
-  const favprecio = document.createElement('p');
-  favprecio.textContent = precio; // Debes reemplazar esto con el precio real
+  const precioParagraph = document.createElement('p');
+  precioParagraph.textContent = precio; // Debes reemplazar esto con el precio real
 
   // Agregar la imagen y la descripción al contenedor del instrumento
   instrumentLoc.appendChild(h3);
-  instrumentLoc.appendChild(precio);
+  instrumentLoc.appendChild(precioParagraph);
 
   // Agregar la imagen y el contenedor de descripción al nuevo instrumento
   nuevoInstrumento.appendChild(imagen);
@@ -78,6 +78,7 @@ function añadirProductoFavoritos() {
   // Insertar el nuevo instrumento al contenedor de favoritos
   favoritosContainer.insertBefore(nuevoInstrumento, favoritosContainer.lastElementChild);
 }
+
 
 function popUpFlautaReconocida() {
   // Crear un elemento de div para la ventana emergente
@@ -116,7 +117,7 @@ function popUpFlautaReconocida() {
 
   // Crear un elemento de párrafo para la descripción
   const descriptionParagraph = document.createElement('p');
-  descriptionParagraph.textContent = 'Esta flauta es un instrumento musical de viento. Produce sonidos melodiosos y es adecuada para músicos de todos los niveles.';
+  descriptionParagraph.textContent = 'Esta flauta es un instrumento musical de viento. Produce sonidos melodiosos y es adecuada para músicos de todos los niveles. ¡Agita para añadirla a tu cesta!';
   descriptionParagraph.style.fontSize = '20px'; // Establecer el tamaño de fuente más grande
   descriptionParagraph.style.textAlign = 'center'; // Establecer el texto alineado al centro
 
@@ -162,15 +163,22 @@ function popUpFlautaReconocida() {
   popup.appendChild(timeBar);
 
   // Cambiar el tamaño de la barra de tiempo gradualmente
-  changeSize(timeBar);
+  const timer = changeSize(timeBar);
 
-  // Desaparecer la ventana emergente cuando se complete la barra de tiempo
+  // Desaparecer la ventana emergente cuando se complete el tiempo
   setTimeout(() => {
-    añadido = false;
+    clearInterval(timer);
     popup.remove();
-  }, 10000); 
+  }, 10000); // 10000 milisegundos = 10 segundos
 
-  añadido = true;
+  // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-FAV"
+  socket.on("AÑADIR-A-FAV", () => {
+    console.log("se añadió ueee");
+    setTimeout(() => {
+      clearInterval(timer);
+      popup.remove();
+    }, 2000); // 2000 milisegundos = 2 segundos de retraso
+  });
 }
 
 function changeSize(element) {
