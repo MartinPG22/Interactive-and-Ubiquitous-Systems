@@ -355,7 +355,6 @@ instrumentoDetectadoCamara = false;
 console.log("Aplicación reseteada al estado inicial.");
 }
 
-
 function detectarCestaCamara(){
   var giroscopioActivo2 = false; // Inicialmente desactivado
   var gyroscope2 = null; // Variable global para el objeto gyroscope
@@ -374,10 +373,9 @@ function detectarCestaCamara(){
                 socket.emit("CESTA-SELECCIONADO");
                 detectado = true;
                 gyroscope2.stop();}
-            if (beta >= umbralGiro) {
-              // NO llega aqui nunca
+            else if (beta > umbralGiro){ 
               socket.emit("CESTA-NO-SELECCIONADO");
-            }
+              gyroscope2.stop();}   
         }
         ultimoBeta = beta;
     });
