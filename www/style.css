@@ -279,3 +279,17 @@ body, html {
   .invisible {
     display: none;
 }
+
+.contenedor-fav{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.favorito-marcado{
+  display: none;
+  margin-left: 5%;
+  width: 7%;
+  height: 7%;
+}

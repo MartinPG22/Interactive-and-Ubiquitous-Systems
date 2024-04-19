@@ -6,6 +6,7 @@ socket.on("connect", () => {
 
   socket.on("ACK_CONNECTION", () => {
     console.log("ACK");
+    compararElementos();
   });
 
   socket.on("CAMBIAR-INSTRUMENTO-UI", () => {
@@ -41,14 +42,10 @@ socket.on("connect", () => {
     añadirProductoFavoritos();
   });
 
-  socket.on("AÑADIR-A-CESTA", () => {
-    console.log("se añadió alpaca");
-    añadirProductoCesta();
-  });
-
   socket.on("NO-AÑADIR-A-CESTA", () => {
     console.log("que no se añada");
-    nada();
+    let popupElement = document.querySelector('.popup');
+    popupElement.remove();
   });
 
   socket.on("CAMBIAR-ORDEN-MENOR-MAYOR", () => {
@@ -61,7 +58,8 @@ socket.on("connect", () => {
 
 });
 
-function nada() {}
+function nada(){}
+
 function cambiarOrdenMenosMas() {
   // Obtener todos los elementos de producto
   const productos = Array.from(document.querySelectorAll(".item"));
@@ -188,6 +186,8 @@ function añadirProductoFavoritos() {
   if (!elementoExistente) {
     favoritosContainer.insertBefore(nuevoInstrumento, favoritosContainer.lastElementChild);
   }
+
+  compararElementos();
 }
 
 function añadirProductoCesta() {
@@ -212,15 +212,17 @@ function añadirProductoCesta() {
       <img src="${popupImage}" alt="flauta" class="product-image">
   </div>
   <div class="product-details">
-      <h3 class="product-name">${descripcion}"</h3>
-      <p class="product-price">€${precioNumerico.toFixed(2)}</p>
+      <h3 class="product-name">${descripcion}</h3>
+      <div class="contenedor-fav">
+          <p class="product-price">€${precioNumerico.toFixed(2)}</p>
+          <img class="favorito-marcado" src="images/favs.png" alt="icono fav">
+      </div>
   </div>`;
 
   // Agregar el nuevo elemento de artículo al contenedor de la lista de artículos
   itemList.appendChild(nuevoItem);
 
-  // Actualizar la lista de instrumentos SINO NO FUNCIONA ELIMINAR, NO QUITAR
-  instrumentos = document.querySelectorAll('.item');
+  compararElementos();
 }
 
 
@@ -399,21 +401,11 @@ async function popUpInstrumentoReconocidoCesta(instrumento) {
   // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-CESTA"
   socket.on("AÑADIR-A-CESTA", () => {
     console.log("se quita ventana");
+    añadirProductoCesta();
     setTimeout(() => {
       popup.remove();
-
     }, 2000); // 2000 milisegundos = 2 segundos de retraso
   });
-
-  // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-CESTA"
-  socket.on("NO-AÑADIR-A-CESTA", () => {
-    console.log("se quita ventana de no cesta");
-    setTimeout(() => {
-      popup.remove();
-
-    }, 2000); // 2000 milisegundos = 2 segundos de retraso
-  });
-
 }
 
 function changeSize(element) {
@@ -507,8 +499,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-// Lista de elementos de instrumentos
-let instrumentos = document.querySelectorAll('.item');
 
 // Índice para rastrear el elemento actual
 var currentIndex = 0;
@@ -518,44 +508,72 @@ var elementoAnterior = null;
 
 // Función para cambiar el fondo del elemento actual y actualizar el índice
 function cambiarInstrumento() {
+  let elementos = null;
+
+  // Obtener la lista de elementos dependiendo de la ubicación
+  const cart = document.querySelector('.cart');
+  const favorites = document.querySelector('.favorites');
+
+  if (cart && !cart.classList.contains('invisible')) {
+    elementos = document.querySelectorAll('.cart .item');
+  } else if (favorites && !favorites.classList.contains('invisible')) {
+    elementos = document.querySelectorAll('.favorites .instrument');
+  } else {
+    console.log('No se encontró el contenedor de la lista de elementos.');
+    return;
+  }
+
   // Restaurar el fondo del elemento anterior si existe
   if (elementoAnterior) {
     elementoAnterior.style.backgroundColor = ""; // Restaurar el color de fondo original
   }
 
-  // Cambiar el fondo del elemento actual a negro
-  instrumentos[currentIndex].style.backgroundColor = "#b0b0b0";
+  // Cambiar el fondo del elemento actual
+  elementos[currentIndex].style.backgroundColor = "#b0b0b0";
 
   // Hacer scroll del elemento actual a la vista si está fuera del rango
-  instrumentos[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  elementos[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
 
   // Guardar una referencia al elemento actual como elemento anterior
-  elementoAnterior = instrumentos[currentIndex];
+  elementoAnterior = elementos[currentIndex];
 
   // Actualizar el índice al siguiente elemento
-  currentIndex = (currentIndex + 1) % instrumentos.length;
+  currentIndex = (currentIndex + 1) % elementos.length;
 }
 
 function eliminarDiv() {
+  let elementos = null;
+
+  // Obtener la lista de elementos dependiendo de la ubicación
+  const cart = document.querySelector('.cart');
+  const favorites = document.querySelector('.favorites');
+
+  if (cart && !cart.classList.contains('invisible')) {
+    elementos = document.querySelectorAll('.cart .item');
+  } else if (favorites && !favorites.classList.contains('invisible')) {
+    elementos = document.querySelectorAll('.favorites .instrument');
+  } else {
+    console.log('No se encontró el contenedor de la lista de elementos.');
+    return;
+  }
+
   // Recorrer todos los elementos
-  for (var i = 0; i < instrumentos.length; i++) {
-    var instrumento = instrumentos[i];
-    
+  elementos.forEach(elemento => {
     // Obtener el color de fondo del elemento
-    var colorDeFondo = window.getComputedStyle(instrumento).getPropertyValue("background-color");
+    var colorDeFondo = window.getComputedStyle(elemento).getPropertyValue("background-color");
 
     // Comprobar si el color de fondo es igual al deseado (por ejemplo, rgb(176, 176, 176))
     if (colorDeFondo === "rgb(176, 176, 176)") {
       // Eliminar el color de fondo
-      instrumento.style.backgroundColor = "transparent";
+      elemento.style.backgroundColor = "transparent";
       
       // Eliminar el elemento
-      instrumento.remove();
+      elemento.remove();
 
-      // Actualizar la lista de elementos
-      instrumentos = document.querySelectorAll('.item');
     }
-  }
+  });
+
+  compararElementos();
 }
 
 // Función para eliminar el contenido de la lista de elementos
@@ -607,4 +625,27 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-  
+function compararElementos() {
+  const itemsLista = document.querySelectorAll('.item-list .item');
+  const itemsFavoritos = document.querySelectorAll('.favorites .instrument');
+
+  itemsLista.forEach(itemLista => {
+    const nombreLista = itemLista.querySelector('.product-name').textContent.trim();
+    let encontradaCoincidencia = false; // Variable para indicar si se encontró una coincidencia
+
+    itemsFavoritos.forEach(itemFavorito => {
+      const nombreFavorito = itemFavorito.querySelector('h3').textContent.trim();
+      if (nombreLista === nombreFavorito) {
+        const favoritoMarcado = itemLista.querySelector('.favorito-marcado');
+        favoritoMarcado.style.display = 'block';
+        encontradaCoincidencia = true; // Se ha encontrado una coincidencia
+      }
+    });
+
+    // Si no se encontró ninguna coincidencia, ocultar el elemento .favorito-marcado
+    if (!encontradaCoincidencia) {
+      const favoritoMarcado = itemLista.querySelector('.favorito-marcado');
+      favoritoMarcado.style.display = 'none';
+    }
+  });
+}

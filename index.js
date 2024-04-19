@@ -79,8 +79,8 @@ io.on('connection', (socket) => {
 
   socket.on("CESTA-NO-SELECCIONADO", () => {
     if (socketUI) {
+      console.log("funsiona");
       socketUI.emit("NO-AÑADIR-A-CESTA");
-      
     }
   });
 
