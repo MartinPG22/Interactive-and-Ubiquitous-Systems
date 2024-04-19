@@ -185,6 +185,10 @@ botonCentrarMapa.addEventListener("touchstart", function() {
   }
 });
 
+
+  
+
+
 function reconocerPalabra(palabra) {
   const palabraLowerCase = palabra.toLowerCase();
 
@@ -234,6 +238,11 @@ function iniciarReconocimientoVoz() {
     reconocerPalabra(palabra);
   }
 
+  recognition.onend = function() {
+    // Restaurar el color de fondo al detener el reconocimiento
+    botonGrabar.style.backgroundColor = ''; // Restaura el color de fondo a su estado original
+  };
+
   recognition.start();
 }
 
@@ -243,7 +252,11 @@ const botonCesta = document.getElementById("boton-cesta");
 const botonFavs = document.getElementById("boton-favs");
 
 // Agregar evento al botón para iniciar el reconocimiento de voz
-botonGrabar.addEventListener("touchstart", iniciarReconocimientoVoz);
+botonGrabar.addEventListener("touchstart", function() {
+  // Cambiar el color de fondo al iniciar el reconocimiento
+  botonGrabar.style.backgroundColor = '#bbbbbb';
+  iniciarReconocimientoVoz(); // Iniciar el reconocimiento de voz
+});
 botonCesta.addEventListener("touchstart", iniciarReconocimientoVoz);
 botonFavs.addEventListener("touchstart", iniciarReconocimientoVoz);
 
