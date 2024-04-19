@@ -1,5 +1,4 @@
 const socket = io(); // Inicializar el socket
-let añadido = true;
 
 socket.on("connect", () => {
   console.log("ready");
@@ -39,16 +38,12 @@ socket.on("connect", () => {
 
   socket.on("AÑADIR-A-FAV", () => {
     console.log("se añadió ueee");
-    if (añadido === true){
-      añadirProductoFavoritos();
-    }
+    añadirProductoFavoritos();
   });
 
   socket.on("AÑADIR-A-CESTA", () => {
     console.log("se añadió alpaca");
-    if (añadido === true){
-      añadirProductoCesta();
-    }
+    añadirProductoCesta();
   });
 
   socket.on("CAMBIAR-ORDEN-MENOR-MAYOR", () => {
@@ -134,7 +129,6 @@ function abrirCesta() {
 }
 
 function añadirProductoFavoritos() {
-  console.log("ole");
   // Obtener la imagen del div con la clase 'popup'
   const popupImage = document.querySelector('.popup img');
   // Obtener el texto de descripción del popup
@@ -173,8 +167,21 @@ function añadirProductoFavoritos() {
   // Obtener el contenedor de favoritos
   const favoritosContainer = document.querySelector('.favorites');
 
-  // Insertar el nuevo instrumento al contenedor de favoritos
-  favoritosContainer.insertBefore(nuevoInstrumento, favoritosContainer.lastElementChild);
+  // Verificar si ya existe un elemento similar en el contenedor de favoritos
+  const elementosFavoritos = favoritosContainer.querySelectorAll('.instrument');
+  let elementoExistente = false;
+  elementosFavoritos.forEach(elemento => {
+    const descripcionExistente = elemento.querySelector('h3').textContent;
+    const precioExistente = elemento.querySelector('p').textContent;
+    if (descripcionExistente === descripcion && precioExistente === precio) {
+      elementoExistente = true;
+    }
+  });
+
+  // Si no existe un elemento similar, añadirlo al contenedor de favoritos
+  if (!elementoExistente) {
+    favoritosContainer.insertBefore(nuevoInstrumento, favoritosContainer.lastElementChild);
+  }
 }
 
 function añadirProductoCesta() {
@@ -201,11 +208,13 @@ function añadirProductoCesta() {
   <div class="product-details">
       <h3 class="product-name">${descripcion}"</h3>
       <p class="product-price">€${precioNumerico.toFixed(2)}</p>
-  </div>
-`;
+  </div>`;
 
-// Agregar el nuevo elemento de artículo al contenedor de la lista de artículos
-itemList.appendChild(nuevoItem);
+  // Agregar el nuevo elemento de artículo al contenedor de la lista de artículos
+  itemList.appendChild(nuevoItem);
+
+  // Actualizar la lista de instrumentos SINO NO FUNCIONA ELIMINAR, NO QUITAR
+  instrumentos = document.querySelectorAll('.item');
 }
 
 
@@ -381,31 +390,10 @@ async function popUpInstrumentoReconocidoCesta(instrumento) {
   popup.style.zIndex = '9999';
   popup.style.maxHeight = '80%'; // Establecer la altura máxima
 
-  // Crear la barra de tiempo
-  const timeBar = document.createElement('div');
-  timeBar.classList.add('time-bar');
-  timeBar.style.width = '100%';
-  timeBar.style.height = '10px';
-  timeBar.style.background = '#C6FF93'; // Color de la barra de tiempo
-  timeBar.style.position = 'absolute';
-  timeBar.style.bottom = '0';
-  timeBar.style.borderRadius = '5px';
-  popup.appendChild(timeBar);
-
-  // Cambiar el tamaño de la barra de tiempo gradualmente
-  const timer = changeSize(timeBar);
-
-  // Desaparecer la ventana emergente cuando se complete el tiempo
-  setTimeout(() => {
-    clearInterval(timer);
-    popup.remove();
-  }, 10000); // 10000 milisegundos = 10 segundos
-
-  // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-FAV"
+  // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-CESTA"
   socket.on("AÑADIR-A-CESTA", () => {
     console.log("se quita ventana");
     setTimeout(() => {
-      clearInterval(timer);
       popup.remove();
 
     }, 2000); // 2000 milisegundos = 2 segundos de retraso
@@ -504,7 +492,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // Lista de elementos de instrumentos
-var instrumentos = document.querySelectorAll('.item');
+let instrumentos = document.querySelectorAll('.item');
 
 // Índice para rastrear el elemento actual
 var currentIndex = 0;
@@ -535,21 +523,22 @@ function cambiarInstrumento() {
 function eliminarDiv() {
   // Recorrer todos los elementos
   for (var i = 0; i < instrumentos.length; i++) {
-      var instrumento = instrumentos[i];
+    var instrumento = instrumentos[i];
+    
+    // Obtener el color de fondo del elemento
+    var colorDeFondo = window.getComputedStyle(instrumento).getPropertyValue("background-color");
+
+    // Comprobar si el color de fondo es igual al deseado (por ejemplo, rgb(176, 176, 176))
+    if (colorDeFondo === "rgb(176, 176, 176)") {
+      // Eliminar el color de fondo
+      instrumento.style.backgroundColor = "transparent";
       
-      // Obtener el color de fondo del elemento
-      var colorDeFondo = window.getComputedStyle(instrumento).getPropertyValue("background-color");
+      // Eliminar el elemento
+      instrumento.remove();
 
-      // Comprobar si el color de fondo es igual al deseado (por ejemplo, rgb(176, 176, 176))
-      if (colorDeFondo === "rgb(176, 176, 176)") {
-          // Eliminar el color de fondo
-          instrumento.style.backgroundColor = "transparent";
-          
-          // Eliminar el elemento
-          instrumento.remove();
-
-          i --;
-      }
+      // Actualizar la lista de elementos
+      instrumentos = document.querySelectorAll('.item');
+    }
   }
 }
 

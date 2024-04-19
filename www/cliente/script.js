@@ -377,9 +377,9 @@ function detectarCestaCamara(){
   }
 
 ////////////////////// Función Eliminar ///////////////////////////
-var giroscopioActivo = false; // Inicialmente desactivado
-var gyroscope = null; // Variable global para el objeto gyroscope
-var botonEliminar = document.getElementById('eliminar');
+let giroscopioActivo = false; // Inicialmente desactivado
+let gyroscope = null; // Variable global para el objeto gyroscope
+let botonEliminar = document.getElementById('eliminar');
 
 // Definir la función toggleGiroscopio fuera de activarGiroscopio
 function toggleGiroscopio() {
