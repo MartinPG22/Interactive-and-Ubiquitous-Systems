@@ -77,6 +77,13 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on("CESTA-NO-SELECCIONADO", () => {
+    if (socketUI) {
+      socketUI.emit("NO-AÑADIR-A-CESTA");
+      
+    }
+  });
+
   socket.on("ORDEN-MENOR-MAYOR", () => {
     if (socketUI) {
       socketUI.emit("CAMBIAR-ORDEN-MENOR-MAYOR");

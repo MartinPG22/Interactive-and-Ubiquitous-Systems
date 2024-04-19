@@ -363,8 +363,9 @@ console.log("Aplicación reseteada al estado inicial.");
 function detectarCestaCamara(){
   var giroscopioActivo2 = false; // Inicialmente desactivado
   var gyroscope2 = null; // Variable global para el objeto gyroscope
+  var detectado = false;
 
-  if (!giroscopioActivo2) {
+  if (!giroscopioActivo2 && !detectado) {
     console.log('punto 1')
     sumar = 0;
     var umbralGiro = 5;
@@ -375,7 +376,11 @@ function detectarCestaCamara(){
         if (Math.abs(beta - ultimoBeta) > umbralGiro * 1.5) {
             if (beta < umbralGiro) {
                 socket.emit("CESTA-SELECCIONADO");
-                console.log('punto 2')
+                detectado = true;
+                gyroscope2.stop();}
+            if (beta >= umbralGiro) {
+              // NO llega aqui nunca
+              socket.emit("CESTA-NO-SELECCIONADO");
             }
         }
         ultimoBeta = beta;

@@ -46,6 +46,11 @@ socket.on("connect", () => {
     añadirProductoCesta();
   });
 
+  socket.on("NO-AÑADIR-A-CESTA", () => {
+    console.log("que no se añada");
+    nada();
+  });
+
   socket.on("CAMBIAR-ORDEN-MENOR-MAYOR", () => {
     cambiarOrdenMenosMas();
   });
@@ -56,6 +61,7 @@ socket.on("connect", () => {
 
 });
 
+function nada() {}
 function cambiarOrdenMenosMas() {
   // Obtener todos los elementos de producto
   const productos = Array.from(document.querySelectorAll(".item"));
@@ -398,6 +404,16 @@ async function popUpInstrumentoReconocidoCesta(instrumento) {
 
     }, 2000); // 2000 milisegundos = 2 segundos de retraso
   });
+
+  // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-CESTA"
+  socket.on("NO-AÑADIR-A-CESTA", () => {
+    console.log("se quita ventana de no cesta");
+    setTimeout(() => {
+      popup.remove();
+
+    }, 2000); // 2000 milisegundos = 2 segundos de retraso
+  });
+
 }
 
 function changeSize(element) {
