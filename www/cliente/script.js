@@ -185,10 +185,6 @@ botonCentrarMapa.addEventListener("touchstart", function() {
   }
 });
 
-
-  
-
-
 function reconocerPalabra(palabra) {
   const palabraLowerCase = palabra.toLowerCase();
 
@@ -248,8 +244,8 @@ function iniciarReconocimientoVoz() {
 
 // Obtener referencia al botón de grabación
 const botonGrabar = document.getElementById("boton-pago");
-const botonCesta = document.getElementById("boton-cesta");
-const botonFavs = document.getElementById("boton-favs");
+//const botonCesta = document.getElementById("boton-cesta");
+//const botonFavs = document.getElementById("boton-favs");
 
 // Agregar evento al botón para iniciar el reconocimiento de voz
 botonGrabar.addEventListener("touchstart", function() {
@@ -257,8 +253,8 @@ botonGrabar.addEventListener("touchstart", function() {
   botonGrabar.style.backgroundColor = '#bbbbbb';
   iniciarReconocimientoVoz(); // Iniciar el reconocimiento de voz
 });
-botonCesta.addEventListener("touchstart", iniciarReconocimientoVoz);
-botonFavs.addEventListener("touchstart", iniciarReconocimientoVoz);
+//botonCesta.addEventListener("touchstart", iniciarReconocimientoVoz);
+//botonFavs.addEventListener("touchstart", iniciarReconocimientoVoz);
 
 
 ////////////////////////// Reconocimiento de imagenes //////////////////////////

@@ -303,27 +303,3 @@ body, html {
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
 }
 
-#opciones-superiores {
-  position: absolute;
-  top: 0;
-  right:0;
-  margin: 10px;
-  display: flex; /* Para alinear los botones horizontalmente */
-  justify-content: flex-end; /* Alinea los elementos al final del contenedor */
-}
-
-#boton-favs{
-  margin-left: 10px;
-  margin-top: -1%;
-  padding: 3px;
-  border-radius: 5px;
-  width: 12%;
-  height: 20%;
-}
-#boton-cesta {
-  margin-left: 10px;
-  padding: 3px;
-  border-radius: 5px;
-  width: 10%;
-  height: 15%;
-}
