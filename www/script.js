@@ -21,8 +21,8 @@ socket.on("connect", () => {
   socket.on("RECARGAR_CARRITO", () => {
     recomendacionesFinCompra();
     setTimeout(function() {
-      recargarPagina();
-    }, 60000); 
+      procesarCompra();
+    }, 40000); 
   });
   
   socket.on("ABRIR_FAVORITOS", () => {
@@ -89,7 +89,7 @@ function recomendacionesFinCompra() {
         if (popupDiv) {
           document.body.removeChild(popupDiv);
         }
-      }, 60000); // 60 segundos
+      }, 40000); // 60 segundos
     })
     .catch(error => {
       console.error('Error al obtener el archivo JSON:', error);
@@ -116,7 +116,10 @@ function mostrarPopupRecomendaciones(instrumentos) {
   popupDiv.style.border = '2px solid #333333';
   popupDiv.style.zIndex = '9999';
   popupDiv.style.maxWidth = '800px'; // Ancho máximo del popup
-
+  if (instrumentos.length === 0) {
+    // Mensaje cuando no hay instrumentos comprados
+    popupDiv.innerHTML = '<h2 style="text-align: center; color: red;">SELECCIONE NUEVOS INSTRUMENTOS Y DISFRUTE DE LAS CANCIONES RECOMENDADAS POR HARMONYSCAN!</h2>';
+  } else {
   // Crear el contenido del popup
   var contenidoPopup = document.createElement('div');
   contenidoPopup.innerHTML = '<h2 style="text-align: center; font-size: 35px; color:red;">MIENTRAS SU COMPRA SE PROCESA, ¡DISFRUTE ESTAS CANCIONES RECOMENDADAS PARA LOS INSTRUMENTOS QUE HA COMPRADO!:</h2>';
@@ -155,7 +158,7 @@ function mostrarPopupRecomendaciones(instrumentos) {
 
   // Añadir el contenido al popup
   popupDiv.appendChild(contenidoPopup);
-
+  }
   // Botón para cerrar el pop-up
   const closeButton = document.createElement('button');
   closeButton.textContent = 'Cerrar';
@@ -344,7 +347,6 @@ function añadirProductoFavoritos() {
 }
 
 function añadirProductoCesta() {
-  console.log("ole cesta ");
   // Obtener la imagen del div con la clase 'popup'
   const popupImage = document.querySelector('.popup img').src;
 
@@ -472,7 +474,6 @@ async function popUpInstrumentoReconocidoFav(instrumento) {
 
   // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-FAV"
   socket.on("AÑADIR-A-FAV", () => {
-    console.log("se añadió ueee");
     setTimeout(() => {
       clearInterval(timer);
       popup.remove();
@@ -551,7 +552,6 @@ async function popUpInstrumentoReconocidoCesta(instrumento) {
 
   // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-CESTA"
   socket.on("AÑADIR-A-CESTA", () => {
-    console.log("se quita ventana");
     setTimeout(() => {
       popup.remove();
     }, 2000); // 2000 milisegundos = 2 segundos de retraso
@@ -570,6 +570,29 @@ function changeSize(element) {
     }
     element.style.width = `${width}%`;
   }, interval);
+}
+
+function procesarCompra() {
+  // Comprobar si la cesta está vacía
+  if (estaCestaVacia()) {
+    // Mostrar mensaje de error
+    Swal.fire({
+      title: 'Error en la compra',
+      text: 'La cesta está vacía y no se puede procesar la compra.',
+      icon: 'error',
+      showConfirmButton: true,
+      confirmButtonText: 'OK'
+    });
+  } else {
+    // Procesar la compra
+    recargarPagina();
+  }
+}
+
+function estaCestaVacia() {
+  // Esta función debe devolver true si la cesta está vacía
+  // Por ejemplo, revisar si el carrito de compras tiene elementos
+  return document.querySelectorAll('.product-name').length === 0;
 }
 
 function recargarPagina() {
