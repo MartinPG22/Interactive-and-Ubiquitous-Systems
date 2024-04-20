@@ -65,6 +65,12 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on("CAMARA-RECONOCIDA-TAMBOR", () => {
+    if (socketUI) {
+      socketUI.emit("TAMBOR-RECONOCIDO-CAMARA");
+    }
+  });
+
   socket.on("FAVORITO-SELECCIONADO", () => {
     if (socketUI) {
       socketUI.emit("AÑADIR-A-FAV");

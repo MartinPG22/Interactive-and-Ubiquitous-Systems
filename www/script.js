@@ -42,6 +42,11 @@ socket.on("connect", () => {
     añadirProductoFavoritos();
   });
 
+  socket.on("AÑADIR-A-CESTA", () => {
+    console.log("se añadió a cesta");
+    añadirProductoCesta();
+  });
+  
   socket.on("NO-AÑADIR-A-CESTA", () => {
     console.log("que no se añada");
     let popupElement = document.querySelector('.popup');
@@ -57,8 +62,6 @@ socket.on("connect", () => {
   });
 
 });
-
-function nada(){}
 
 function cambiarOrdenMenosMas() {
   // Obtener todos los elementos de producto
@@ -401,7 +404,6 @@ async function popUpInstrumentoReconocidoCesta(instrumento) {
   // Desaparecer la ventana emergente después de un breve retraso cuando se recibe el evento "AÑADIR-A-CESTA"
   socket.on("AÑADIR-A-CESTA", () => {
     console.log("se quita ventana");
-    añadirProductoCesta();
     setTimeout(() => {
       popup.remove();
     }, 2000); // 2000 milisegundos = 2 segundos de retraso
