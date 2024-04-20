@@ -196,10 +196,16 @@ function reconocerPalabra(palabra) {
       alertMessage: "La compra ha sido procesada exitosamente.",
       alertType: "success"
     },
-    "ordenar menos a más": "ORDEN-MENOR-MAYOR",
-    "ordenar menor a mayor": "ORDEN-MENOR-MAYOR",
-    "ordenar más a menos": "ORDEN-MAYOR-MENOR",
-    "ordenar mayor a menor": "ORDEN-MAYOR-MENOR",
+    "pagar": {
+      action: "PALABRA_COMPRAR",
+      message: "¡Compra Procesada!",
+      alertMessage: "La compra ha sido procesada exitosamente.",
+      alertType: "success"
+    },
+    "ordenar de menos a más": "ORDEN-MENOR-MAYOR",
+    "ordenar de menor a mayor": "ORDEN-MENOR-MAYOR",
+    "ordenar de más a menos": "ORDEN-MAYOR-MENOR",
+    "ordenar de mayor a menor": "ORDEN-MAYOR-MENOR",
     "ver favoritos": "PALABRA_FAVORITOS",
     "ver mis favoritos": "PALABRA_FAVORITOS",
     "favoritos": "PALABRA_FAVORITOS",
