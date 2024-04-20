@@ -34,7 +34,14 @@ socket.on("connect", () => {
   });
 
   socket.on("FLAUTA-RECONOCIDA-CAMARA", () => {
+    console.log("flauta negra")
     popUpInstrumentoReconocidoCesta("flauta negra");
+  });
+
+  socket.on("TAMBOR-RECONOCIDO-CAMARA", () => {
+    // Aqui no llega 
+    console.log("tambor")
+    popUpInstrumentoReconocidoCesta("tambor");
   });
 
   socket.on("AÑADIR-A-FAV", () => {

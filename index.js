@@ -60,6 +60,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on("CAMARA-RECONOCIDA", () => {
+    console.log("FLAUTA RECONOCIDA");
     if (socketUI) {
       socketUI.emit("FLAUTA-RECONOCIDA-CAMARA");
     }
@@ -67,6 +68,7 @@ io.on('connection', (socket) => {
 
   socket.on("CAMARA-RECONOCIDA-TAMBOR", () => {
     if (socketUI) {
+      console.log("TAMBOR RECONOCIDO");
       socketUI.emit("TAMBOR-RECONOCIDO-CAMARA");
     }
   });

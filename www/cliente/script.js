@@ -260,7 +260,7 @@ botonGrabar.addEventListener("touchstart", function() {
 ////////////////////////// Reconocimiento de imagenes //////////////////////////
 
 // extraemos la url de nuestro modelo, lo holdea google y funciona 
-const URL = "https://teachablemachine.withgoogle.com/models/OZlbn5-Ct/";
+const URL = "https://teachablemachine.withgoogle.com/models/TACPgTVLY/";
 
 let model, webcam, labelContainer, maxPredictions;
 let instrumentoDetectadoCamara = false; // Variable de estado para controlar si se ha detectado un instrumento
@@ -321,7 +321,10 @@ async function predict() {
 
 async function check(prediction) {
   // Check if the sound is recognized as a flauta
+  // Se llama "Tambor rojo" la nueva clase y es la posición 3 
   console.log(prediction[0].probability)
+  console.log(prediction[3].probability)
+  console.log(instrumentoDetectadoCamara)
   if (prediction[0].probability >= 0.75 && !instrumentoDetectadoCamara) {
       socket.emit("CAMARA-RECONOCIDA");
       instrumentoDetectadoCamara = true; // Marcar que se ha detectado un instrumento
@@ -330,6 +333,17 @@ async function check(prediction) {
       setTimeout(() => {
           resetApp(); // Llamada a resetApp para limpiar y detener todo
       }, 5000); // 5000 milisegundos son 5 segundos
+    }
+  else if (prediction[3].probability >= 0.75 && !instrumentoDetectadoCamara) {
+    console.log('punto 2, tamborilero')
+      socket.emit("CAMARA-RECONOCIDA-TAMBOR");
+      instrumentoDetectadoCamara = true; // Marcar que se ha detectado un instrumento
+      detectarCestaCamara();
+      // Detener la cámara y limpiar después de 5 segundos
+      setTimeout(() => {
+          resetApp(); // Llamada a resetApp para limpiar y detener todo
+      }, 5000); // 5000 milisegundos son 5 segundos
+      
   } else {
       // Si no se detecta ningún instrumento después de 5 segundos, detener la cámara y limpiar
       setTimeout(() => {

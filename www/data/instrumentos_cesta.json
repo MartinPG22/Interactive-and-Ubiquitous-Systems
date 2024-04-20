@@ -50,4 +50,59 @@
       },
       "class": "precio-popup"
     }
-  }}
+  },
+  "tambor": {
+    "image": {
+      "src": "images/tambor_rojo_3.jpg",
+      "alt": "Imagen de un tambor rojo",
+      "style": {
+        "display": "block",
+        "margin": "auto",
+        "width": "200px",
+        "height": "auto"
+      }
+    },
+    "nameParagraph": {
+      "text": "El instrumento detectado ha sido el siguiente:",
+      "style": {
+        "fontWeight": "bold",
+        "textAlign": "center",
+        "fontSize": "25px"
+      }
+    },
+    "Paragraph": {
+      "text": "Arahal 38.5 Symphony Drum Recorder",
+      "style": {
+        "fontWeight": "bold",
+        "textAlign": "center",
+        "fontSize": "20px"
+      },
+      "class": "descripcion-popup"
+    },
+    "recoParagraph": {
+      "text": "SE HA RECONOCIDO UN TAMBOR",
+      "style": {
+        "fontSize": "30px",
+        "fontWeight": "bold",
+        "textAlign": "center"
+      }
+    },
+    "descriptionParagraph": {
+      "text": "Este tambor es un instrumento de percursión. Perfecto para animar cualquier fiesta.",
+      "style": {
+        "fontSize": "20px",
+        "textAlign": "center"
+      }
+    },
+    "priceParagraph": {
+      "text": "Precio: €89",
+      "style": {
+        "fontSize": "20px",
+        "fontWeight": "bold",
+        "textAlign": "center"
+      },
+      "class": "precio-popup"
+    }
+  }
+}
+  
