@@ -225,7 +225,7 @@ function reconocerPalabra(palabra) {
 function mostrarAlerta(title, text, icon) {
   Swal.fire({
     title: '¡La compra está siendo procesada!',
-    text: 'La compra está siendo procesada...',
+    text: 'La compra está siendo  procesada...',
     icon: icon,
     timer: 60500, // Cerrar automáticamente después de 5 segundos
     timerProgressBar: true,
