@@ -185,26 +185,21 @@ function mostrarPopupRecomendaciones(instrumentos) {
 
 function compartirRecomendaciones(instrumentos) {
   if (navigator.share) {
-    const textoCompartir = 'Echa un vistazo a estas canciones recomendadas para instrumentos musicales:';
-    let urls = [];
-    let nombresCanciones = [];
+    let textoFinal = 'Echa un vistazo a estas canciones recomendadas para instrumentos musicales:\n\n';
 
     instrumentos.forEach(instrumento => {
       if (instrumento.canciones_recomendadas && instrumento.canciones_recomendadas.length > 0) {
+        textoFinal += `Para ${instrumento.nombre}:\n`;
         instrumento.canciones_recomendadas.forEach(cancion => {
-          nombresCanciones.push(cancion.nombre);
-          urls.push(cancion.url);
+          textoFinal += `- ${cancion.nombre}\n`;
         });
+        textoFinal += '\n';
       }
     });
-
-    let textoCanciones = nombresCanciones.join('\n- ');
-    let textoFinal = `${textoCompartir}\n- ${textoCanciones}`;
 
     navigator.share({
       title: 'Recomendaciones de Canciones',
       text: textoFinal,
-      urls: urls
     }).then(() => {
       console.log('Contenido compartido con éxito');
     }).catch((error) => {
@@ -214,6 +209,7 @@ function compartirRecomendaciones(instrumentos) {
     alert('Lo siento, la funcionalidad de compartir no está disponible en este navegador.');
   }
 }
+
 
 
 
