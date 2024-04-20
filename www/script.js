@@ -19,7 +19,10 @@ socket.on("connect", () => {
   });
 
   socket.on("RECARGAR_CARRITO", () => {
-    recargarPagina();
+    recomendacionesFinCompra();
+    setTimeout(function() {
+      recargarPagina();
+    }, 60000); 
   });
   
   socket.on("ABRIR_FAVORITOS", () => {
@@ -69,6 +72,150 @@ socket.on("connect", () => {
   });
 
 });
+
+
+function recomendacionesFinCompra() {
+  fetch('data/recomendaciones.json')
+    .then(response => response.json())
+    .then(data => {
+      const instrumentosComprados = Array.from(document.querySelectorAll('.product-name')).map(item => item.textContent.trim());
+      const recomendacionesFiltradas = filtrarRecomendaciones(data.instrumentos, instrumentosComprados);
+      mostrarPopupRecomendaciones(recomendacionesFiltradas);
+
+      // Establecer temporizador para cerrar automáticamente el popup después de 60 segundos
+      setTimeout(() => {
+        // Cerrar el popup automáticamente
+        let popupDiv = document.getElementById('miPopup');
+        if (popupDiv) {
+          document.body.removeChild(popupDiv);
+        }
+      }, 60000); // 60 segundos
+    })
+    .catch(error => {
+      console.error('Error al obtener el archivo JSON:', error);
+    });
+}
+function filtrarRecomendaciones(recomendaciones, instrumentosComprados) {
+  const recomendacionesFiltradas = recomendaciones.filter(instrumento => instrumentosComprados.includes(instrumento.nombre));
+  return recomendacionesFiltradas;
+}
+
+function mostrarPopupRecomendaciones(instrumentos) {
+  // Crear el elemento del popup
+  var popupDiv = document.createElement('div');
+  popupDiv.id = 'miPopup'; // Asignar un ID al popup
+  document.body.appendChild(popupDiv);
+
+  // Aplicar estilos al popup
+  popupDiv.style.position = 'fixed';
+  popupDiv.style.top = '50%';
+  popupDiv.style.left = '50%';
+  popupDiv.style.transform = 'translate(-50%, -50%)';
+  popupDiv.style.backgroundColor = '#ffffff';
+  popupDiv.style.padding = '20px';
+  popupDiv.style.border = '2px solid #333333';
+  popupDiv.style.zIndex = '9999';
+  popupDiv.style.maxWidth = '800px'; // Ancho máximo del popup
+
+  // Crear el contenido del popup
+  var contenidoPopup = document.createElement('div');
+  contenidoPopup.innerHTML = '<h2 style="text-align: center; font-size: 35px; color:red;">MIENTRAS SU COMPRA SE PROCESA, ¡DISFRUTE ESTAS CANCIONES RECOMENDADAS PARA LOS INSTRUMENTOS QUE HA COMPRADO!:</h2>';
+
+  // Iterar sobre cada instrumento
+  instrumentos.forEach(instrumento => {
+    var instrumentoDiv = document.createElement('div');
+    var nombreInstrumento = document.createElement('h3');
+    nombreInstrumento.textContent = instrumento.nombre;
+    nombreInstrumento.style.textAlign = 'center'; // Centrar el texto
+    nombreInstrumento.style.fontSize = '22px'; // Tamaño de fuente más grande para el nombre del instrumento
+    instrumentoDiv.appendChild(nombreInstrumento);
+
+
+    if (instrumento.canciones_recomendadas && instrumento.canciones_recomendadas.length > 0) {
+      var enlacesDiv = document.createElement('div'); // Contenedor para los enlaces
+      instrumento.canciones_recomendadas.forEach(cancion => {
+        var enlace = document.createElement('a');
+        enlace.href = cancion.url;
+        enlace.target = '_blank';
+        enlace.textContent = cancion.nombre;
+        enlace.style.display = 'block'; // Mostrar cada enlace en una línea nueva
+        enlace.style.textAlign = 'center'; // Centrar el texto
+        enlace.style.fontSize = '20px'; // Tamaño de fuente más grande
+        enlacesDiv.appendChild(enlace);
+      });
+      instrumentoDiv.appendChild(enlacesDiv);
+    } else {
+      var p = document.createElement('p');
+      p.textContent = 'No hay canciones recomendadas.';
+      instrumentoDiv.appendChild(p);
+    }
+
+    contenidoPopup.appendChild(instrumentoDiv);
+  });
+
+  // Añadir el contenido al popup
+  popupDiv.appendChild(contenidoPopup);
+
+  // Botón para cerrar el pop-up
+  const closeButton = document.createElement('button');
+  closeButton.textContent = 'Cerrar';
+  closeButton.style.display = 'block';
+  closeButton.style.marginTop = '10px';
+  closeButton.style.marginLeft = 'auto'; 
+  closeButton.style.marginRight = 'auto'; 
+  closeButton.addEventListener('click', () => {
+      document.body.removeChild(popupDiv);
+  });
+
+  popupDiv.appendChild(closeButton);
+
+  // Botón para compartir
+  const compartirButton = document.createElement('button');
+  compartirButton.textContent = 'Compartir Recomendaciones';
+  compartirButton.style.display = 'block';
+  compartirButton.style.marginTop = '10px';
+  compartirButton.style.marginLeft = 'auto'; // Centrar horizontalmente
+  compartirButton.style.marginRight = 'auto'; // Centrar horizontalment
+  compartirButton.addEventListener('click', () => {
+      compartirRecomendaciones(instrumentos);
+  });
+
+  popupDiv.appendChild(compartirButton);
+}
+
+function compartirRecomendaciones(instrumentos) {
+  if (navigator.share) {
+    const textoCompartir = 'Echa un vistazo a estas canciones recomendadas para instrumentos musicales:';
+    let urls = [];
+    let nombresCanciones = [];
+
+    instrumentos.forEach(instrumento => {
+      if (instrumento.canciones_recomendadas && instrumento.canciones_recomendadas.length > 0) {
+        instrumento.canciones_recomendadas.forEach(cancion => {
+          nombresCanciones.push(cancion.nombre);
+          urls.push(cancion.url);
+        });
+      }
+    });
+
+    let textoCanciones = nombresCanciones.join('\n- ');
+    let textoFinal = `${textoCompartir}\n- ${textoCanciones}`;
+
+    navigator.share({
+      title: 'Recomendaciones de Canciones',
+      text: textoFinal,
+      urls: urls
+    }).then(() => {
+      console.log('Contenido compartido con éxito');
+    }).catch((error) => {
+      console.error('Error al compartir:', error);
+    });
+  } else {
+    alert('Lo siento, la funcionalidad de compartir no está disponible en este navegador.');
+  }
+}
+
+
 
 function cambiarOrdenMenosMas() {
   // Obtener todos los elementos de producto
@@ -338,8 +485,6 @@ async function popUpInstrumentoReconocidoFav(instrumento) {
 }
 
 async function popUpInstrumentoReconocidoCesta(instrumento) {
-  // Cargar el JSON desde una URL o archivo local
-  console.log("popup");
   const response = await fetch('data/instrumentos_cesta.json');
   const data = await response.json();
   console.log(data);

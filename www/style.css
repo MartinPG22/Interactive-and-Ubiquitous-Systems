@@ -80,8 +80,6 @@ body, html {
   height: 55%;
 }
 
-
-
   .favorites {
     display: flex;
     flex-wrap: wrap;

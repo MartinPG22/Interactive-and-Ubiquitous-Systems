@@ -1,0 +1,73 @@
+{
+    "instrumentos": [
+      {
+        "nombre": "GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER LIMITED CANDY RED BURST HSS PF",
+        "canciones_recomendadas": [
+          {
+            "nombre": "Highway to Hell - AC/DC",
+            "url": "https://www.youtube.com/watch?v=l482T0yNkeo&ab_channel=acdcVEVO"
+          },
+          {
+            "nombre": "Sweet Child o' Mine - Guns N' Roses",
+            "url": "https://www.youtube.com/watch?v=1w7OgIMMRc4&ab_channel=GunsNRosesVEVO"
+          },
+          {
+            "nombre": "Smoke on the Water - Deep Purple",
+            "url": "https://www.youtube.com/watch?v=Q2FzZSBD5LE&ab_channel=DeepPurpleOfficial"
+          }
+        ]
+      },
+      {
+        "nombre": "GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS",
+        "canciones_recomendadas": [
+          {
+            "nombre": "Stairway to Heaven - Led Zeppelin",
+            "url": "https://www.youtube.com/watch?v=QkF3oxziUI4&ab_channel=LedZeppelin"
+          },
+          {
+            "nombre": "Hotel California - Eagles",
+            "url": "https://www.youtube.com/watch?v=09839DpTctU&ab_channel=Eagles"
+          },
+          {
+            "nombre": "Under the Bridge - Red Hot Chili Peppers",
+            "url": "https://youtu.be/GLvohMXgcBo?si=IPosVFsIt-pLsA7N"
+          }
+        ]
+      },
+      {
+        "nombre": "TAYLOR SWIFT 614ce SPECIAL EDITION ACOUSTIC ELECTRIC GUITAR - RED",
+        "canciones_recomendadas": [
+          {
+            "nombre": "Love Story - Taylor Swift",
+            "url": "https://youtu.be/8xg3vE8Ie_E?si=6_MXNh9PVG8xnxfk"
+          },
+          {
+            "nombre": "Teardrops on My Guitar - Taylor Swift",
+            "url": "https://youtu.be/xKCek6_dB0M?si=zIE6HCSSx92caoh6"
+          },
+          {
+            "nombre": "Back to December - Taylor Swift",
+            "url": "https://youtu.be/QUwxKWT6m7U?si=L7eKXD_j1VASUDcE"
+          }
+        ]
+      },
+      {
+        "nombre": "Aulos 509B Symphony Alto Recorder",
+        "canciones_recomendadas": [
+          {
+            "nombre": "Greensleeves",
+            "url": "https://youtu.be/gJ8uQiOjJ9E?si=wtiUGVcsiiKfF2i6"
+          },
+          {
+            "nombre": "Canon in D - Johann Pachelbel",
+            "url": "https://youtu.be/mbsCRNos4gk?si=N2OWqoZYSHWvMbZR"
+          },
+          {
+            "nombre": "Amazing Grace",
+            "url": "https://youtu.be/kGLFPu6sLZU?si=6DL8e6FllU33FCPa"
+          }
+        ]
+      }
+    ]
+  }
+  
