@@ -363,12 +363,12 @@ function detectarCestaCamara(){
   if (!giroscopioActivo2 && !detectado) {
     console.log('punto 1')
     sumar = 0;
-    var umbralGiro = 5;
+    var umbralGiro = 4;
     var ultimoBeta = 0;
     gyroscope2 = new Gyroscope({ frequency: 60 });
     gyroscope2.addEventListener('reading', function() {
         var beta = gyroscope2.z;
-        if (Math.abs(beta - ultimoBeta) > umbralGiro * 1.5) {
+        if (Math.abs(beta - ultimoBeta) > umbralGiro) {
             if (beta < umbralGiro) {
                 socket.emit("CESTA-SELECCIONADO");
                 detectado = true;
