@@ -67,6 +67,23 @@
             "url": "https://youtu.be/kGLFPu6sLZU?si=6DL8e6FllU33FCPa"
           }
         ]
+      },
+      {
+        "nombre": "Arahal 38.5 Symphony Drum Recorder",
+        "canciones_recomendadas": [
+          {
+            "nombre": "Seven Nation Army - The White Stripes",
+            "url": "https://www.youtube.com/watch?v=0J2QdDbelmY"
+          },
+          {
+            "nombre": "I Want To Hold Your Hand - The Beatles",
+            "url": "https://www.youtube.com/watch?v=v1HDt1tknTc"
+          },
+          {
+            "nombre": "Billie Jean - Michael Jackson",
+            "url": "https://www.youtube.com/watch?v=Zi_XLOBDo_Y"
+          }
+        ]
       }
     ]
   }
