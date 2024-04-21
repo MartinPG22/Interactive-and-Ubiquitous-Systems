@@ -14,7 +14,7 @@
     b) Observarás entonces que habrá originalmente dos instrumentos con corazones marcados dado que esos son favoritos desde que se inicia la APP.
     c) La aplicación actualmente procesa por escaneo de imagen dos instrumentos adicionales:
         - FLAUTA NEGRA
-        - TAMBOR
+        - TAMBOR ROJO   
        Y por sonido detecta:
         - FLAUTA NEGRA
     d) Siempre que se procese una compra, la cesta se pondrá a 0 y podrás añadir a cesta los unicos dos instrumentos que la APP detecta.
@@ -39,3 +39,11 @@
     h) Si desea conocer la localización de nuestras tiendas podrá hacerlo pulsando en el icono de localización, donde la aplicación tomará su posición y le mostrará donde esta las tiendas.
 
 Con estas instrucciones, esperamos que disfrutes al máximo la experiencia con nuestra aplicación. ¡Gracias por elegir HarmonyScan!
+
+3.  INICIAR LA APP: 
+    
+    a) Para lanzar el codigo debe abrirlo en local desde algún editor de código, en nuestro caso ha sido desarrollado en Visual Studio Code, y en la terminal introducir 
+    "node index.js" para inicializar el servidor. 
+    b) Posteriormente utilize el navegador google chrome para abrir la pantalla de cobro en localhost:3000. 
+    c) Para poder usar el telefono móvil como dispositivo interactivo debe conectarlo al ordenador mediante un cable usb y tener activada la depuración por usb en su dispositivo.
+    d) Una vez ya conectado el teléfono al ordenador basta con abrir el detector de QR y usarlo en la pantalla de cobro, se abrira directamente en su dispositivo móvil la ruta "http://localhost:3000/cliente/index.html"
