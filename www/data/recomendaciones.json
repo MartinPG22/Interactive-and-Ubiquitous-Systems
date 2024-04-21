@@ -84,6 +84,32 @@
             "url": "https://www.youtube.com/watch?v=Zi_XLOBDo_Y"
           }
         ]
+      },
+      {
+        "nombre": "MARSHALL MG15G",
+        "canciones_recomendadas": [
+          {
+            "nombre": "Don't Cry - Guns N' Roses",
+            "url": "https://youtu.be/zRIbf6JqkNc?si=f2hzpP4ox9uFcEqu"
+          },
+          {
+            "nombre": "No Doubt - Don't Speak",
+            "url": "https://youtu.be/TR3Vdo5etCQ?si=Xq1o15RzWG3P7Ka4"
+          }
+        ]
+      },
+      {
+        "nombre": "RODE NT1-A COMPLETE VOCAL RECORDING",
+        "canciones_recomendadas": [
+          {
+            "nombre": "Careless Whisper - George Michael",
+            "url": "https://youtu.be/izGwDsrQ1eQ?si=YVle8khUapBg0WSJ"
+          },
+          {
+            "nombre": "Cutting Crew - I Just Died In Your Arms",
+            "url": "https://youtu.be/6dOwHzCHfgA?si=dgjIDQxQ6_K02Ccu"
+          }
+        ]
       }
     ]
   }

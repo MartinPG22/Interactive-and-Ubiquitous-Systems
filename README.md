@@ -18,7 +18,9 @@
        Y por sonido detecta:
         - FLAUTA NEGRA
     d) Siempre que se procese una compra, la cesta se pondrá a 0 y podrás añadir a cesta los unicos dos instrumentos que la APP detecta.
-    e) Las recomendaciones duran en pantalla 1 minuto que es lo que consideramos que tarda el proceso de compra, después desaparecen en caso de querer guardar los datos deberán compartise.
+    e) Las recomendaciones duran en pantalla 40 segundos que es lo que consideramos que tarda el proceso de compra, después desaparecen en caso de querer guardar los datos deberán compartise.
+    f) En caso de que la cesta este vacía, se evaluará la posibilidad de compra y cuando el programa detecte que la cesta está vacia lanzará el error, son 40 segundos de evaluación.
+
 
 2. INSTRUCCIONES SOBRE EL USO DE LA APP:
 

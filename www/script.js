@@ -115,14 +115,16 @@ function mostrarPopupRecomendaciones(instrumentos) {
   popupDiv.style.padding = '20px';
   popupDiv.style.border = '2px solid #333333';
   popupDiv.style.zIndex = '9999';
-  popupDiv.style.maxWidth = '800px'; // Ancho máximo del popup
+  popupDiv.style.maxWidth = '1000px'; // Ancho máximo del popup
+  popupDiv.style.overflowY = 'auto';  // Agregar barra de desplazamiento vertical si es necesario
+  popupDiv.style.maxHeight = '80vh';  // Altura máxima del popup
   if (instrumentos.length === 0) {
     // Mensaje cuando no hay instrumentos comprados
-    popupDiv.innerHTML = '<h2 style="text-align: center; color: red;">SELECCIONE NUEVOS INSTRUMENTOS Y DISFRUTE DE LAS CANCIONES RECOMENDADAS POR HARMONYSCAN!</h2>';
+    popupDiv.innerHTML = '<h2 style="text-align: center; font-size: 35px; color: red;">SELECCIONE NUEVOS INSTRUMENTOS Y DISFRUTE DE LAS CANCIONES RECOMENDADAS POR HARMONYSCAN!</h2>';
   } else {
   // Crear el contenido del popup
   var contenidoPopup = document.createElement('div');
-  contenidoPopup.innerHTML = '<h2 style="text-align: center; font-size: 35px; color:red;">MIENTRAS SU COMPRA SE PROCESA, ¡DISFRUTE ESTAS CANCIONES RECOMENDADAS PARA LOS INSTRUMENTOS QUE HA COMPRADO!:</h2>';
+  contenidoPopup.innerHTML = '<h2 style="text-align: center; font-size: 35px; color:red;">MIENTRAS SU COMPRA SE PROCESA, ¡DISFRUTE ESTAS CANCIONES RECOMENDADAS PARA LOS INSTRUMENTOS QUE HA COMPRADO!</h2>';
 
   // Iterar sobre cada instrumento
   instrumentos.forEach(instrumento => {
