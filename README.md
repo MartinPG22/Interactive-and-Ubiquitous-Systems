@@ -105,17 +105,28 @@ The application can detect the following instruments through:
 
 ## 👥 Team Members
 - Martin Portugal
-- Alba Vidales
 - Aitana Ortiz
+- Alba Vidales
 
 ---
 
 ## 📂 Code Organization
 The code is organized into the following folders:
 
-- **[Folder 1 Name]**: [Folder Description]
-- **[Folder 2 Name]**: [Folder Description]
-- **[Folder 3 Name]**: [Folder Description]
+- **Pruebas_camara_recon.js**: Functional code for image recognition using Teachable Machine.
+- **package-lock.json / package.json**: Contains all dependencies and version logs related to Node.js, ensuring that all team members use the same versions.
+- **index.js**: Defines a web server using Node.js with Express.js and Socket.io, enabling real-time communication between a client (likely a mobile application) and a web-based UI (probably the payment screen on a desktop browser).
+- **node_modules/**: Stores all JavaScript packages required by the project, along with their dependencies.
+- **www/**: Implementation of the client and payment screen.
+  - **cliente/**: Client implementation.
+    - **index.html**: Client layout.
+    - **script.js**: Client functionality.
+    - **style.css**: Client styling.
+  - **data/**: JSON files containing instrument information for the payment screen.
+  - **images/**: Contains images used in the payment screen.
+  - **index.html**: Payment screen layout.
+  - **script.js**: Payment screen functionality.
+  - **style.css**: Payment screen styling.
 
 ---
 
