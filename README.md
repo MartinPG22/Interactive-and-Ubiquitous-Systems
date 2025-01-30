@@ -1,49 +1,123 @@
-# siu_FINAL
+# 🎸 Interactive Musical Instrument Shopping App
 
-1. CONSIDERACIONES A TENER EN CUENTA:
+Welcome to our **Interactive Musical Instrument Shopping Application**! This app offers innovative features such as **image and sound recognition**, **personalized recommendations**, and a **favorites management system** to enhance your shopping experience. 🎶🛍️
 
-    a) Para una evaluación más sencilla decidimos dejar ciertos instrumentos por determinado. Estos son:
-        - En la cesta: GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER LIMITED CANDY RED BURST HSS PF
-                       GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS 
-                       MARSHALL MG15G 
-                       RODE NT1-A COMPLETE VOCAL RECORDING
-                       TAYLOR SWIFT 614ce SPECIAL EDITION ACOUSTIC ELECTRIC GUITAR - RED
-        - En favoritos: GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER LIMITED CANDY RED BURST HSS PF
-                        GUITARRA ELECTRICA FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS 
-        
-    b) Observarás entonces que habrá originalmente dos instrumentos con corazones marcados dado que esos son favoritos desde que se inicia la APP.
-    c) La aplicación actualmente procesa por escaneo de imagen dos instrumentos adicionales:
-        - FLAUTA NEGRA
-        - TAMBOR ROJO   
-       Y por sonido detecta:
-        - FLAUTA NEGRA
-    d) Siempre que se procese una compra, la cesta se pondrá a 0 y podrás añadir a cesta los unicos dos instrumentos que la APP detecta.
-    e) Las recomendaciones duran en pantalla 40 segundos que es lo que consideramos que tarda el proceso de compra, después desaparecen en caso de querer guardar los datos deberán compartise.
-    f) En caso de que la cesta este vacía, se evaluará la posibilidad de compra y cuando el programa detecte que la cesta está vacia lanzará el error, son 40 segundos de evaluación.
+---
 
+## 🚀 Features & Considerations
 
-2. INSTRUCCIONES SOBRE EL USO DE LA APP:
+### 🎯 Predefined Instruments
+To facilitate evaluation, some instruments are preloaded into the cart and favorites:
 
-    a) Siempre que se quiera añadir un instrumento nuevo a la cesta se hará pulsando al botón de 'IMAGEN', este permitirá al usuario
-    escanear la imagen del instrumento a añadir, después en caso de querer añadirlo se girará la pantalla del móvil a la derecha. En caso de rechazo a la izquierda.
-    b) Siempre que se quiera añadir un instrumento nuevo a favoritos se hará pulsando el botón de 'SONIDO', este permitirá reconocer el instrumentos que se esta escuchando
-    y agitando el móvil de arriba a abajo este se añadirá a favoritos.
-    c) Si se desea eliminar un instrumento, se pulsará sobre el icono de la papelera y inclinando la parte delantera del móvil hacia abajo repetidas veces se irá bajando en los 
-    diferentes instrumentos de la cesta, cuando este en el que el usuario desea borrar puede volver a pulsar el botón de la papelera y este se borrará. Lo mismo para los favoritos.
-    d) Si quiere ordenar la cesta, pulsando en el botón del micrófono y diciendo "ordenar de menos a más", "ordenar de menor a mayor", "ordenar de más a menos" o "ordenar de mayor a menor", la cesta se ordenará en función de los precios.
-    e) Si desea procesar su compra solo tendrá que pulsar en el icono del micrófono y decir "comprar" o "pagar" y se emitirá un pop up de las canciones que le recomedamos 
-    en función de los instrumentos que haya en su cesta, estos temas podrá compartirlos desde el ordenador de la tienda a su correo personal. Y uan finalizado el proceso de compra
-    se vaciará la cesta para el próximo cliente.
-    f) Si desea ver los favoritos, podrá acceder a esa sección pulsando el micrófono y diciendo "ver favoritos", "ver mis favoritos" o "favoritos", y en caso de querer ir a la cesta, lo podrá hacer diciendo "ver mi cesta", "cesta" o "ver cesta".
-    g) Si desea volver a ver las instrucciones puede hacerlo pulsando el botón de ayuda "?" donde dispondrá de toda esta información.
-    h) Si desea conocer la localización de nuestras tiendas podrá hacerlo pulsando en el icono de localización, donde la aplicación tomará su posición y le mostrará donde esta las tiendas.
+#### 🛒 **Cart**:
+- **FENDER PLAYER STRATOCASTER LIMITED CANDY RED BURST HSS PF ELECTRIC GUITAR**
+- **FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS ELECTRIC GUITAR**
+- **MARSHALL MG15G**
+- **RODE NT1-A COMPLETE VOCAL RECORDING**
+- **TAYLOR SWIFT 614ce SPECIAL EDITION ACOUSTIC ELECTRIC GUITAR - RED**
 
-Con estas instrucciones, esperamos que disfrutes al máximo la experiencia con nuestra aplicación. ¡Gracias por elegir HarmonyScan!
+#### ❤️ **Favorites**:
+- **FENDER PLAYER STRATOCASTER LIMITED CANDY RED BURST HSS PF ELECTRIC GUITAR**
+- **FENDER PLAYER STRATOCASTER 3-COLOR SUNBURST MN HSS ELECTRIC GUITAR**
 
-3.  INICIAR LA APP: 
-    
-    a) Para lanzar el codigo debe abrirlo en local desde algún editor de código, en nuestro caso ha sido desarrollado en Visual Studio Code, y en la terminal introducir 
-    "node index.js" para inicializar el servidor. 
-    b) Posteriormente utilize el navegador google chrome para abrir la pantalla de cobro en localhost:3000. 
-    c) Para poder usar el telefono móvil como dispositivo interactivo debe conectarlo al ordenador mediante un cable usb y tener activada la depuración por usb en su dispositivo.
-    d) Una vez ya conectado el teléfono al ordenador basta con abrir el detector de QR y usarlo en la pantalla de cobro, se abrira directamente en su dispositivo móvil la ruta "http://localhost:3000/cliente/index.html"
+### 🔍 Detected Instruments
+The application can detect the following instruments through:
+- **Image scanning**: 🖼️ Black Flute, Red Drum
+- **Sound detection**: 🎵 Black Flute
+
+### 🛍️ Purchase Process
+- When processing a purchase, **the cart is reset**.
+- Only instruments **detected by the application** can be added to the cart.
+
+### 🎵 Song Recommendations
+- Displayed for **40 seconds** (estimated purchase process time).
+- To save recommendations, you must **share them**.
+
+### 🚨 Empty Cart Warning
+- If the cart is empty, the application will display an **error message for 40 seconds** (evaluation time).
+
+---
+
+## 📝 Instructions for Use
+
+### ➕ **Add to Cart**
+- Press the **"IMAGE"** button to scan an instrument.
+- **Turn the screen right** to add it to the cart.
+- **Turn the screen left** to reject it.
+
+### ⭐ **Add to Favorites**
+- Press the **"SOUND"** button to recognize the instrument being played.
+- **Shake the phone up and down** to add it to favorites.
+
+### 🗑️ **Delete Instruments**
+- Press the **trash can** icon.
+- **Tilt the phone down repeatedly** to select the instrument.
+- Press the **trash can** icon again to delete it (works for both cart and favorites).
+
+### 🔢 **Sort the Cart**
+- Press the **microphone** button and say:
+  - "sort from least to most"
+  - "sort from smallest to largest"
+  - "sort from most to least"
+  - "sort from largest to smallest"
+
+### 💳 **Process a Purchase**
+- Press the **microphone** icon and say:
+  - "buy" or "pay"
+- A pop-up will appear with **song recommendations** based on the instruments in your cart.
+- You can **share these recommendations** via email.
+- **The cart will be emptied** after the purchase.
+
+### 👀 **View Favorites/Cart**
+- Press the **microphone** and say:
+  - "view favorites", "view my favorites", or "favorites" to see your favorite instruments.
+  - "view my cart", "cart", or "view cart" to return to the cart.
+
+### ❓ **Help**
+- Press the **help button "?"** to view these instructions.
+
+### 📍 **Store Location**
+- Press the **location icon** to use your location and display the nearest music stores.
+
+---
+
+## 🛠️ How to Start the Application
+
+1. Open the code in a **code editor** (we recommend **Visual Studio Code**).
+2. Open the terminal and run:
+   ```bash
+   node index.js
+   ```
+   to start the server.
+3. Open the payment screen in **Google Chrome**:
+   ```
+   http://localhost:3000
+   ```
+4. Connect your **mobile phone to the computer via USB** and enable **USB debugging**.
+5. Open the **QR code scanner** and scan the code on the payment screen.
+6. The path:
+   ```
+   http://localhost:3000/cliente/index.html
+   ```
+   will open directly on your mobile device.
+
+---
+
+## 👥 Team Members
+- Martin Portugal
+- Alba Vidales
+- Aitana Ortiz
+
+---
+
+## 📂 Code Organization
+The code is organized into the following folders:
+
+- **[Folder 1 Name]**: [Folder Description]
+- **[Folder 2 Name]**: [Folder Description]
+- **[Folder 3 Name]**: [Folder Description]
+
+---
+
+🎵 *Enjoy your musical shopping experience!* 🛍️🎸
+
